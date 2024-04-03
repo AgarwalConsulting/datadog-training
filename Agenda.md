@@ -57,7 +57,11 @@
 
 ## 9. Case Studies and Real-World Examples
 
+- Integration with
+  - MySQL
+  - ServiceNow
 - Showcase of how DataDog is used in different industries and use cases
 - Success stories and lessons learned from implementing DataDog
+- Understanding DataDog pricing
 
 This outline provides a structured approach to introducing participants to DataDog, covering essential concepts, installation, setup, and usage of its various features for monitoring, analytics, and troubleshooting in modern IT environments.
