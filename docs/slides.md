@@ -507,7 +507,19 @@ class: center, middle
 ---
 class: center, middle
 
-### Signup & Installation
+### Signup/Login & Installation on Windows
+
+.content-credits[https://github.com/AgarwalConsulting/datadog-training/blob/master/Setup.md]
+
+---
+class: center, middle
+
+#### [Other Integrations](https://app.datadoghq.com/signup/agent)
+
+---
+class: center, middle
+
+Infrastructure, Metrics, Dashboards and Logs...
 
 ---
 class: center, middle
