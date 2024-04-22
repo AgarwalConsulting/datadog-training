@@ -529,6 +529,14 @@ class: center, middle
 .content-credits[https://docs.datadoghq.com/agent/basic_agent_usage/windows]
 
 ---
+class: center, middle
+
+and it's configuration
+
+.content-credits[https://docs.datadoghq.com/agent/configuration/agent-configuration-files/?tab=agentv6v7]
+
+---
+class: center, middle
 
 #### Monitoring windows Performance counters
 
