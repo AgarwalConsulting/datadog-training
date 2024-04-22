@@ -110,7 +110,7 @@ Here you are trying to *learn* something, while here your *brain* is doing you a
 ---
 class: center, middle
 
-### 📚 Content ` > ` 🕒 Time
+### 📚 Content ` <> ` 🕒 Time
 
 ---
 class: center, middle
@@ -520,6 +520,19 @@ class: center, middle
 class: center, middle
 
 Infrastructure, Metrics, Dashboards and Logs...
+
+---
+class: center, middle
+
+#### Understanding the Windows Agent
+
+.content-credits[https://docs.datadoghq.com/agent/basic_agent_usage/windows]
+
+---
+
+#### Monitoring windows Performance counters
+
+.content-credits[https://www.datadoghq.com/blog/windows-performance-counters-datadog/]
 
 ---
 class: center, middle
