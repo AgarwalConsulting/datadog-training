@@ -550,6 +550,11 @@ class: center, middle
 ---
 class: center, middle
 
+## [Understanding Statsd](https://docs.datadoghq.com/developers/dogstatsd/?code-lang=go&tab=hostagent#client-instantiation-parameters)
+
+---
+class: center, middle
+
 ### [Connect logs and traces](https://docs.datadoghq.com/tracing/other_telemetry/connect_logs_and_traces/go/)
 
 ---
