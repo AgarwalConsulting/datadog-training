@@ -1,0 +1,66 @@
+version: "3.7"
+
+services:
+  mongodb:
+    image: mongo
+    restart: always
+    ports:
+    - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
+    volumes:
+      - dbdata:/data/db
+
+  rvstore-order-api:
+    build:
+      context: .
+      args:
+        SERVICE: orders
+    restart: always
+    container_name: orders
+    ports:
+    - 9002:9002
+    environment:
+      - MONGO_DB_URL=mongodb://root:example@mongodb/admin
+
+  rvstore-product-api:
+    build:
+      context: .
+      args:
+        SERVICE: products
+    restart: always
+    container_name: products
+    ports:
+    - 9001:9001
+
+  rvstore-auth-api:
+    build:
+      context: .
+      args:
+        SERVICE: auth
+    restart: always
+    container_name: auth
+    ports:
+    - 9003:9003
+
+  rvstore-api-gateway:
+    build:
+      context: ./web/gateway-service
+    restart: always
+    ports:
+     - "9000:9000"
+
+  ui:
+    image: "agarwalconsulting/rvstore-ui:v1"
+    restart: always
+    ports:
+     - "10000:80"
+
+  rvstore-order-simulator:
+    image: "agarwalconsulting/rvstore-order-simulator:v1"
+    environment:
+     - SPRING_PROFILES_ACTIVE=compose
+
+volumes:
+  dbdata:
