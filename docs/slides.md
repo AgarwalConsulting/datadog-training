@@ -545,6 +545,11 @@ class: center, middle
 ---
 class: center, middle
 
+## [Custom Log Collection](https://docs.datadoghq.com/agent/logs/?tab=tailfiles#custom-log-collection)
+
+---
+class: center, middle
+
 ## [DataDog Client Libraries](https://docs.datadoghq.com/developers/community/libraries/)
 
 ---
