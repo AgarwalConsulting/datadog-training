@@ -461,7 +461,7 @@ class: center, middle
 ---
 class: center, middle
 
-- And *complex* Pricing
+And *complex* Pricing
 
 .content-credits[https://cherkaskyb.medium.com/the-magic-that-is-datadog-pricing-part-ii-5fa56cd8476e]
 
