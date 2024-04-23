@@ -6,12 +6,13 @@ import (
 	"os"
 	"strings"
 
+	"github.com/gorilla/handlers"
+	log "github.com/sirupsen/logrus"
+
 	"agarwalconsulting.io/rvstore/orders/pkg/endpoints"
 	"agarwalconsulting.io/rvstore/orders/pkg/repository"
 	"agarwalconsulting.io/rvstore/orders/pkg/service"
 	"agarwalconsulting.io/rvstore/orders/pkg/transport"
-	"github.com/gorilla/handlers"
-	log "github.com/sirupsen/logrus"
 )
 
 var (
@@ -20,6 +21,8 @@ var (
 )
 
 func init() {
+	log.SetFormatter(&log.JSONFormatter{})
+
 	var ok bool
 	mongoURL, ok = os.LookupEnv("MONGO_DB_URL")
 	if !ok {

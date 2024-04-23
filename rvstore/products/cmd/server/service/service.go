@@ -37,8 +37,16 @@ var appdashAddr = fs.String("appdash-addr", "", "Enable Appdash tracing via an A
 func Run() {
 	fs.Parse(os.Args[1:])
 
+	f, err := os.OpenFile("./logs/products.log", os.O_RDWR|os.O_APPEND|os.O_CREATE, 0644)
+
+	if err != nil {
+		fmt.Println("Unable to open log file:", err)
+		return
+	}
+	defer f.Close()
+
 	// Create a single logger, which we'll use and give to other components.
-	logger = log.NewLogfmtLogger(os.Stderr)
+	logger = log.NewLogfmtLogger(f)
 	logger = log.With(logger, "ts", log.DefaultTimestampUTC)
 	logger = log.With(logger, "caller", log.DefaultCaller)
 
