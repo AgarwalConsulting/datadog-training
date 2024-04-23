@@ -545,6 +545,11 @@ class: center, middle
 ---
 class: center, middle
 
+### [Connect logs and traces](https://docs.datadoghq.com/tracing/other_telemetry/connect_logs_and_traces/go/)
+
+---
+class: center, middle
+
 Code
 https://github.com/AgarwalConsulting/datadog-training
 
