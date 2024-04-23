@@ -1,7 +1,8 @@
 # DataDog Agent Installation
 
 - Log in as `gaurav@codermana.com` with Region: `us-east-1` on `https://app.datadoghq.com/account/login`
-  Password will be shared separately!
+
+> Password will be shared separately!
 
 - Go to: `https://app.datadoghq.com/signup/agent#windows`
 
