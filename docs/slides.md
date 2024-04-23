@@ -545,7 +545,17 @@ class: center, middle
 ---
 class: center, middle
 
+## [DataDog Client Libraries](https://docs.datadoghq.com/developers/community/libraries/)
+
+---
+class: center, middle
+
 ### [Connect logs and traces](https://docs.datadoghq.com/tracing/other_telemetry/connect_logs_and_traces/go/)
+
+---
+class: center, middle
+
+### [SLOs using DataDog](https://docs.datadoghq.com/service_management/service_level_objectives/)
 
 ---
 class: center, middle
