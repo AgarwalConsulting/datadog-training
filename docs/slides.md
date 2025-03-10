@@ -1000,7 +1000,48 @@ and it's configuration
 ---
 class: center, middle
 
+### [On Kubernetes](https://docs.datadoghq.com/containers/kubernetes/)
+
+---
+class: center, middle
+
 ### [DataDog Client Libraries](https://docs.datadoghq.com/developers/community/libraries/)
+
+---
+class: center, middle
+
+### **Integrating DataDog with AWS RDS (SQL Server, PostgreSQL, MySQL, etc.)**
+
+---
+
+#### **Steps:**
+
+1️⃣ **Go to AWS Integration in DataDog**
+
+- Navigate to **Integrations** → **AWS** in DataDog UI.
+- Click **"Install Integration"** (if not installed).
+
+2️⃣ **Set Up an IAM Role for DataDog**
+
+- Create an **IAM Role** in AWS with a **CloudWatch Read-Only Policy**.
+- Attach the following policies:
+  - `CloudWatchReadOnlyAccess`
+  - `AWSRDSReadOnlyAccess`
+- Add a **trust policy** to allow DataDog to assume this role.
+
+---
+
+3️⃣ **Link DataDog to AWS**
+
+- In DataDog, go to **AWS Integration** settings.
+- Enter the **IAM Role ARN** created earlier.
+- Select **RDS service** for monitoring.
+
+4️⃣ **Enable Enhanced RDS Monitoring (Optional, Recommended)**
+
+- In AWS Console, go to **RDS → Modify DB Instance**.
+- Enable **Enhanced Monitoring** and select a **monitoring role**.
+- Choose **Granularity** (1s, 5s, 10s, etc.).
 
 ---
 class: center, middle
