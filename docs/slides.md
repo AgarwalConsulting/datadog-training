@@ -1071,8 +1071,171 @@ class: center, middle
 #### **1. Define a Clear Tagging Strategy**
 
 ---
+class: center, middle
 
 📌 **Why?** Standardized tags improve searchability and avoid duplication.
+
+---
+
+- **Use a consistent key:value format** → e.g., `env:prod`, `team:payments`.
+
+- **Avoid redundant tags** → Don’t tag `env:prod` if all metrics in that group are production.
+
+- **Use lowercase and hyphens for readability** → `service:checkout-api`, not `Service_CheckoutAPI`.
+
+- **Limit the number of unique tag values** → Too many variations (`team:alice`, `team:bob`, `team:charlie`) make filtering hard.
+
+---
+class: center, middle
+
+#### **2. Essential Tags for Organizing Data**
+
+---
+class: center, middle
+
+📌 **Why?** Tags help **group related logs, metrics, traces, and monitors**.
+
+---
+
+**a) Environment Tags (Mandatory)**
+Used to separate different environments.
+- ✅ `env:dev`, `env:staging`, `env:prod`
+
+**b) Service & Component Tags**
+Identify services and their components.
+- ✅ `service:orders-api`, `service:billing-db`, `component:redis-cache`
+
+**c) Team Ownership Tags**
+Define responsibility for alerts and troubleshooting.
+- ✅ `team:payments`, `team:devops`, `team:security`
+
+**d) Cloud & Infrastructure Tags**
+Useful for multi-cloud or hybrid setups.
+- ✅ `cloud:aws`, `cloud:gcp`, `region:us-east-1`, `availability-zone:us-east-1a`
+
+**e) Kubernetes-Specific Tags**
+For tracking containers and pods.
+- ✅ `kubernetes_cluster:prod-cluster-1`, `namespace:monitoring`, `pod:web-frontend`
+
+**f) Security & Compliance Tags**
+For tracking sensitive data handling.
+- ✅ `compliance:gdpr`, `data_classification:sensitive`
+
+---
+class: center, middle
+
+*Example Usage:* Filtering all **production errors** for the **orders service**:
+
+```plaintext
+service:orders-api AND env:prod AND status:error
+```
+
+---
+class: center, middle
+
+#### **3. Automating Tagging for Consistency**
+
+---
+class: center, middle
+
+📌 **Why?** Manually tagging data is error-prone and time-consuming.
+
+---
+
+**a) Auto-Tagging with AWS, Kubernetes, and Cloud Integrations**
+
+- AWS resources inherit tags from EC2, RDS, and ECS.
+- Kubernetes automatically applies pod and namespace tags.
+
+**b) Use the DataDog Agent for Dynamic Tags**
+
+- The **DataDog Agent** can **auto-tag logs, metrics, and traces** from hosts and services.
+- Example: Adding **environment and region tags** dynamically.
+  ```yaml
+  tags:
+    - "env:prod"
+    - "region:us-west-2"
+    - "service:checkout"
+  ```
+
+**c) Enrich Logs with Custom Tags**
+
+- Add custom tags at log ingestion using the **DataDog Forwarder or Lambda Functions**.
+- Example (for AWS Lambda Logs in CloudWatch):
+
+```json
+{
+  "message": "Payment failed",
+  "ddtags": "service:payments,env:prod,status:error"
+}
+```
+
+---
+class: center, middle
+
+#### **4. Organizing Data Using Tags in DataDog**
+
+---
+class: center, middle
+
+📌 **Why?** Tags help in filtering, grouping, and visualizing data effectively.
+
+---
+
+**a) Using Tags in Dashboards**
+
+- Create widgets that group data by **service, environment, or team**.
+
+- Example: A **CPU usage graph per Kubernetes cluster**
+  - `kubernetes_cluster:prod-cluster-1`
+  - `kubernetes_cluster:staging-cluster-2`
+
+**b) Using Tags in Monitors & Alerts**
+
+- Alert when **any pod in production exceeds 90% CPU usage**:
+
+```plaintext
+kubernetes_cluster:prod-cluster-1 AND metric:cpu.usage > 90
+```
+
+**c) Filtering Logs Using Tags**
+
+- View all **API errors in production**:
+
+```plaintext
+service:api-gateway AND env:prod AND status:error
+```
+
+- Debug **failed database queries** in staging:
+```plaintext
+service:postgres-db AND env:staging AND query_status:failed
+```
+
+---
+class: center, middle
+
+#### **5. Cleaning Up & Optimizing Tags**
+
+---
+class: center, middle
+
+📌 **Why?** Too many unnecessary tags can slow down searches and clutter dashboards.
+
+---
+
+- **Remove unused tags** → If a tag is never used in filters or dashboards, drop it.
+
+- **Avoid high-cardinality tags** → Tags like `user_id:12345` create **too many unique values**, slowing queries.
+
+- **Review tags quarterly** → Ensure they follow naming conventions and remain relevant.
+
+---
+
+✅ **Example:**
+
+- 🚫 Bad: `user_id:1001`, `user_id:1002`, `user_id:1003` (Too many unique values)
+
+- ✅ Good: `user_type:enterprise`, `user_type:free`, `user_type:pro`
 
 ---
 class: center, middle

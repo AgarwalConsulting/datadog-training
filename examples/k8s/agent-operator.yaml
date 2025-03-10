@@ -4,7 +4,7 @@ metadata:
   name: "datadog"
 spec:
   global:
-    clusterName: "trainers"
+    clusterName: "trainers-eks"
     registry: "public.ecr.aws/datadog"
     tags:
       - "emp:gaurav"
