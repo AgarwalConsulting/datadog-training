@@ -981,6 +981,25 @@ class: center, middle
 ---
 class: center, middle
 
+## Setting up DataDog
+
+---
+class: center, middle
+
+### Understanding the Windows Agent
+
+.content-credits[https://docs.datadoghq.com/agent/basic_agent_usage/windows]
+
+---
+class: center, middle
+
+and it's configuration
+
+.content-credits[https://docs.datadoghq.com/agent/configuration/agent-configuration-files/?tab=agentv6v7]
+
+---
+class: center, middle
+
 Code
 https://github.com/AgarwalConsulting/datadog-training
 
