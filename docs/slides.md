@@ -1010,7 +1010,14 @@ class: center, middle
 ---
 class: center, middle
 
-### **Integrating DataDog with AWS RDS (SQL Server, PostgreSQL, MySQL, etc.)**
+### **Integrating with AWS**
+
+.content-credits[https://docs.datadoghq.com/integrations/amazon_web_services/]
+
+---
+class: center, middle
+
+#### **Integrating DataDog with AWS RDS (SQL Server, PostgreSQL, MySQL, etc.)**
 
 ---
 
