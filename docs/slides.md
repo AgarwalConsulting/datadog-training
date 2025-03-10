@@ -516,6 +516,260 @@ For example, for each monitored host, you’ll get (for enterprise account):
 ---
 class: center, middle
 
+## DataDog Capabilities
+
+---
+class: center, middle
+
+DataDog provides **real-time observability** for applications running on **on-prem, cloud, containers, and Kubernetes** environments.
+
+---
+class: center, middle
+
+### **1. Infrastructure Monitoring**
+
+---
+class: center, middle
+
+Supports **EKS (Managed)** and **Self-managed Kubernetes**
+
+---
+class: center, middle
+
+📌 **Why It Matters**: Kubernetes environments are complex, and visibility into **pods, nodes, workloads, and networking** is essential for performance tuning and troubleshooting.
+
+---
+
+- **Auto-discovery** of Kubernetes workloads, services, and containers.
+
+- **Node & Pod Metrics**: CPU, memory, disk, network usage.
+
+- **Event Monitoring**: Track restarts, crash loops, deployments, and errors.
+
+- **Cluster Maps**: Visualize your cluster in real time (health, deployments, and resource allocation).
+
+- **Kubernetes Logs**: Ingest logs from pods and correlate with traces & metrics.
+
+---
+
+🔹 **How It Works**:
+
+- Deploy the **DataDog Agent as a DaemonSet** in your cluster.
+
+- Enable **Kubernetes State Metrics** and **Autodiscovery** for monitoring services dynamically.
+
+- Use **Live Containers** view for real-time container metrics.
+
+---
+class: center, middle
+
+*Example Use Case*: Monitor a Java-based microservice running on Kubernetes, correlating pod crashes with **OOM (Out of Memory) errors** and slow response times.
+
+---
+class: center, middle
+
+Supports **Bare Metal & EC2 Monitoring**
+
+---
+class: center, middle
+
+📌 **Why It Matters**: Unlike cloud-managed services, **bare metal and EC2 instances** require **direct agent-based monitoring** for OS-level visibility.
+
+---
+
+- System health metrics (**CPU, memory, disk I/O, network**).
+
+- Custom **process monitoring** (e.g., JVM, database, background jobs).
+
+- **Disk utilization monitoring** (avoid failures due to low disk space).
+
+- **Custom scripts & integrations** (for services running on bare metal).
+
+- Custom dashboards for hybrid environments.
+
+---
+
+🔹 **How It Works**:
+
+- Install **DataDog Agent** directly on bare metal or EC2 instances.
+
+- Use **system checks** for resource utilization monitoring.
+
+- Enable **log collection** for applications running on physical/virtual machines.
+
+---
+class: center, middle
+
+*Example Use Case*: Track CPU spikes on a **bare-metal server running ElasticSearch**, correlating high CPU usage with expensive query patterns.
+
+---
+class: center, middle
+
+### **2. Application Performance Monitoring (APM)**
+
+---
+class: center, middle
+
+**Java Monitoring** (Spring Boot, Micronaut, Quarkus, etc.)
+
+---
+class: center, middle
+
+📌 **Why It Matters**: Performance bottlenecks in **Spring Boot, Micronaut, Quarkus**, or other Java applications can be hard to diagnose without **tracing, profiling, and real-time insights**.
+
+---
+
+- **Distributed Tracing**: Trace requests across microservices.
+
+- **Automatic Instrumentation**: Works out-of-the-box for Java (Spring Boot, Hibernate, JDBC, etc.).
+
+- **Profiling & Flame Graphs**: Detect CPU/memory-heavy functions.
+
+- **Service Maps**: Visual representation of how services interact.
+
+- **Error Tracking**: Detect **slow queries, timeouts, and exceptions**.
+
+- Code-level visibility into request performance.
+
+- Automatic instrumentation for Java applications.
+
+---
+
+🔹 **How It Works**:
+
+- Add the **DataDog Java APM Agent** to your application (`dd-java-agent.jar`).
+
+- Configure `DD_SERVICE`, `DD_ENV`, and `DD_VERSION` for environment tagging.
+
+- Enable **JVM metrics** (GC pauses, heap memory, thread states).
+
+- Use **tracing without code changes** (auto-instrumentation for HTTP, database, messaging).
+
+---
+class: center, middle
+
+*Example Use Case*: A **Spring Boot microservice** experiences intermittent slow response times. APM traces reveal that a **specific SQL query is taking 3s**, causing a performance bottleneck. Database query optimization reduces response time by 80%.
+
+---
+class: center, middle
+
+**Database Monitoring** (AWS SQL Server on RDS)
+
+---
+class: center, middle
+
+📌 **Why It Matters**: Database performance issues can cause **slow APIs, increased latencies, and application crashes**.
+
+---
+
+- Supports **AWS RDS (SQL Server)** with query performance insights.
+
+- Query performance insights (**slow queries, deadlocks, missing indexes**).
+
+- **Connections & Locks Monitoring**: Track open connections, transaction locks.
+
+- **Query Execution Plans**: Analyze how SQL queries execute.
+
+- **Replication & Backup Monitoring**: Ensure database replication works as expected.
+
+---
+
+🔹 **How It Works**:
+
+- Enable **RDS Enhanced Monitoring** in AWS.
+
+- Connect DataDog with **AWS Integration** for automatic ingestion of RDS metrics.
+
+- Use **Query Performance Monitoring (QPM)** to track execution times.
+
+---
+class: center, middle
+
+*Example Use Case*: A **Java-based API running on Kubernetes** is slow when querying SQL Server. DataDog detects that a **missing index** is causing a **full table scan** on a large table. Adding the index **reduces query execution time from 2.5s to 200ms**.
+
+---
+class: center, middle
+
+### **3. Log Management**
+
+---
+class: center, middle
+
+📌 **Why It Matters**: Centralized logging helps **correlate infrastructure, application, and security logs** for debugging and threat detection.
+
+---
+
+- **Live Tail Logs**: Real-time logging from Kubernetes, EC2, and Java apps.
+
+- **Log Correlation with Traces**: See logs in the context of APM traces and metrics for debugging.
+
+- Aggregates logs from **ElasticSearch** and Kubernetes.
+
+---
+
+🔹 **How It Works**:
+
+- Configure **DataDog Log Forwarders** for AWS, Kubernetes, and on-prem logs.
+
+- Use **Regex & pattern-based alerts** for error detection.
+
+- Integrate with **SIEM (Security Information and Event Management)** solutions for security logs.
+
+---
+class: center, middle
+
+### **4. Security & Compliance**
+
+---
+
+- **Cloud Security Posture Management (CSPM)** for AWS compliance.
+
+- **Container security**: Monitors vulnerabilities in running containers.
+
+- **Threat detection** for unauthorized access patterns.
+
+- **Security Threat Detection**: Detect unauthorized access & anomalies.
+
+- **SIEM Capabilities**: Centralized **threat intelligence & compliance monitoring**.
+
+---
+class: center, middle
+
+*Example Use Case*: An **unauthorized API access attempt** is detected on AWS. DataDog logs show repeated **failed login attempts from an unknown IP**. Security team blocks the IP and updates IAM policies.
+
+---
+class: center, middle
+
+#### **5. Custom Dashboards & Alerts**
+
+---
+class: center, middle
+
+📌 **Why It Matters**: Custom dashboards provide **real-time visualization** of your entire stack.
+
+---
+
+- Drag-and-drop **custom dashboards**.
+
+- **Alerting on Anomalies**: Detect unusual spikes in latency or error rates.
+
+- **Multi-cloud & Hybrid Monitoring**: AWS, Kubernetes, and on-prem metrics in one place.
+
+- **Integration with Slack, PagerDuty, and Webhooks**.
+
+---
+class: center, middle
+
+*Example Use Case*: A **Java microservice on Kubernetes** starts throwing `500 errors`. DataDog detects a **correlation between high CPU usage and slow DB queries**. The team **auto-scales pods to handle increased traffic**.
+
+---
+class: center, middle
+
+*In Short*: With DataDog, you get a **full-stack observability solution** covering **infrastructure, APM, logs, security, and databases**.
+
+---
+class: center, middle
+
 ## Let's get started...
 
 ---
@@ -523,7 +777,7 @@ class: center, middle
 
 ### Signup/Login & Installation on Windows
 
-.content-credits[https://github.com/AgarwalConsulting/datadog-training/blob/master/Setup.md]
+.content-credits[https://github.com/AgarwalConsulting/datadog-training/blob/master/Setup/Dashboard.md]
 
 ---
 class: center, middle
@@ -533,53 +787,196 @@ class: center, middle
 ---
 class: center, middle
 
-Infrastructure, Metrics, Dashboards and Logs...
+## Navigating the DataDog UI
 
 ---
 class: center, middle
 
-#### Understanding the Windows Agent
-
-.content-credits[https://docs.datadoghq.com/agent/basic_agent_usage/windows]
+The DataDog UI is designed for observability, monitoring, and troubleshooting across infrastructure, applications, and logs.
 
 ---
 class: center, middle
 
-and it's configuration
-
-.content-credits[https://docs.datadoghq.com/agent/configuration/agent-configuration-files/?tab=agentv6v7]
+**1. Home Dashboard**
 
 ---
 class: center, middle
 
-#### Monitoring windows Performance counters
+📌 Where to Find It: After logging in, you land on the Home Dashboard, which gives a high-level overview of system health, active alerts, and key metrics.
 
-.content-credits[https://www.datadoghq.com/blog/windows-performance-counters-datadog/]
+---
+
+🔹 Main Sections:
+
+Search Bar (Top) → Quickly find services, logs, or dashboards.
+
+Navigation Menu (Left Sidebar) → Access features like APM, Logs, Infrastructure, and Security.
+
+Quick Insights (Main Panel) → Recent issues, anomalies, and performance trends.
 
 ---
 class: center, middle
 
-## [Custom Log Collection](https://docs.datadoghq.com/agent/logs/?tab=tailfiles#custom-log-collection)
+✅ Use Case: Quickly check the health of your infrastructure and services.
 
 ---
 class: center, middle
 
-## [DataDog Client Libraries](https://docs.datadoghq.com/developers/community/libraries/)
+**2. Infrastructure Monitoring**
 
 ---
 class: center, middle
 
-## [Understanding Statsd](https://docs.datadoghq.com/developers/dogstatsd/?code-lang=go&tab=hostagent#client-instantiation-parameters)
+📌 Where to Find It: Infrastructure → Hosts / Containers / Kubernetes
+
+---
+
+🔹 Key Features:
+
+Host Map → Visual representation of hosts and their resource usage.
+
+Live Containers → Real-time container performance monitoring.
+
+Kubernetes View → Cluster, node, pod-level metrics.
+
+Network Monitoring → Packet loss, latency, and traffic between services.
 
 ---
 class: center, middle
 
-### [Connect logs and traces](https://docs.datadoghq.com/tracing/other_telemetry/connect_logs_and_traces/go/)
+✅ Use Case: Identify overloaded servers, failing Kubernetes pods, or high-latency networks.
 
 ---
 class: center, middle
 
-### [SLOs using DataDog](https://docs.datadoghq.com/service_management/service_level_objectives/)
+**3. APM (Application Performance Monitoring)**
+
+---
+class: center, middle
+
+📌 Where to Find It: APM > Services
+
+---
+
+🔹 Key Features:
+
+Service List → Shows all monitored applications.
+
+Traces → View request flows across microservices.
+
+Flame Graphs → Pinpoint slow functions or queries.
+
+Service Map → Visualize how different services interact.
+
+---
+class: center, middle
+
+✅ Use Case: Debug slow transactions in a Java-based microservice running on Kubernetes.
+
+---
+class: center, middle
+
+**4. Log Management**
+
+---
+class: center, middle
+
+📌 Where to Find It: Logs > Live Tail / Explorer
+
+---
+
+🔹 Key Features:
+
+Live Tail → Real-time streaming of logs.
+
+Log Explorer → Search and filter logs by service, error codes, or keywords.
+
+Log Analytics → Create visualizations for log trends.
+
+---
+class: center, middle
+
+✅ Use Case: Find the root cause of a failed API request by searching logs for errors.
+
+---
+class: center, middle
+
+**5. Security & Compliance**
+
+---
+class: center, middle
+
+📌 Where to Find It: Security > Signals / Posture
+
+---
+
+🔹 Key Features:
+
+Threat Detection → Detect unauthorized access or suspicious activity.
+
+CSPM (Cloud Security Posture Management) → Ensure AWS compliance.
+
+Runtime Security → Detect attacks on running containers.
+
+---
+class: center, middle
+
+✅ Use Case: Detect and alert on unauthorized SSH access to an EC2 instance.
+
+---
+class: center, middle
+
+**6. Dashboards & Alerting**
+
+---
+class: center, middle
+
+📌 Where to Find It: Dashboards / Monitors
+
+---
+
+🔹 Key Features:
+
+Create Custom Dashboards → Visualize metrics from different sources.
+
+Set Alerts (Monitors) → Get notified for CPU spikes, errors, or downtime.
+
+Correlate Logs, Metrics & Traces → See full application context.
+
+---
+class: center, middle
+
+✅ Use Case: Set up an alert for when database query latency exceeds 1s.
+
+---
+class: center, middle
+
+**7. Integrations & Settings**
+
+---
+class: center, middle
+
+📌 Where to Find It: Integrations / Settings
+
+---
+
+🔹 Key Features:
+
+Integrate AWS, Kubernetes, SQL Server, ElasticSearch
+
+Manage API Keys & Agents
+
+User & Role Management
+
+---
+class: center, middle
+
+✅ Use Case: Enable AWS RDS monitoring for SQL Server performance tracking.
+
+---
+class: center, middle
+
+[Navigation Summarised](https://github.com/AgarwalConsulting/datadog-training/blob/master/navigation.md)
 
 ---
 class: center, middle
