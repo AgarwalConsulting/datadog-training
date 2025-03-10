@@ -168,8 +168,11 @@ class: center, middle
 #### Practical Applications
 
 - Status Pages
+
 - Alerting
+
 - Trend Analysis & Capacity Planning
+
 - ...
 
 ---
@@ -204,7 +207,11 @@ The more you can observe a system, the more you can understand it's complex ways
 
 ---
 
-Monitoring is an action you take. Monitoring a system, an app, a certain metric to pick up on anomalies that might indicate an issue. It answers the question “Is this system working correctly?”
+Monitoring is an action you take. Monitoring a system, an app, a certain metric to pick up on anomalies that might indicate an issue. It answers the question "Is this system working correctly?"
+
+.content-credits[https://www.splunk.com/en_us/blog/learn/observability-vs-monitoring-vs-telemetry.html]
+
+---
 
 Observability is a property of your system, not an action, that helps you control complexity. It answers the question: “What is happening inside this app or across a system?” While observability incorporates monitoring activities, it goes far beyond mere monitoring.
 
@@ -284,7 +291,12 @@ class: center, middle
 ---
 class: center, middle
 
-The concept of SRE starts with the idea that metrics should be closely tied to business objectives. We use several essential tools—SLO, SLA and SLI—in SRE planning and practice.
+The concept of SRE starts with the idea that metrics should be closely tied to business objectives.
+
+---
+class: center, middle
+
+We use several essential tools—SLO, SLA and SLI—in SRE planning and practice.
 
 ---
 class: center, middle
