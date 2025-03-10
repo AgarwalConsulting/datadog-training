@@ -24,6 +24,13 @@ spec:
       apiSecret:
         secretName: "datadog-secret"
         keyName: "api-key"
+  override:
+    nodeAgent:
+      env:
+        - name: DD_HOSTNAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
   features:
     logCollection:
       enabled: true

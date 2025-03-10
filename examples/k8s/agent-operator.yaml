@@ -1,0 +1,25 @@
+apiVersion: "datadoghq.com/v2alpha1"
+kind: "DatadogAgent"
+metadata:
+  name: "datadog"
+spec:
+  global:
+    clusterName: "trainers"
+    registry: "public.ecr.aws/datadog"
+    tags:
+      - "emp:gaurav"
+    credentials:
+      apiSecret:
+        secretName: "datadog-secret"
+        keyName: "api-key"
+  override:
+    nodeAgent:
+      env:
+        - name: DD_HOSTNAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+  features:
+    logCollection:
+      enabled: true
+      containerCollectAll: true
