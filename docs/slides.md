@@ -1053,6 +1053,30 @@ class: center, middle
 ---
 class: center, middle
 
+### **Best Practices for Tagging & Organizing Data in DataDog**
+
+---
+class: center, middle
+
+Proper **tagging and organization** in DataDog is crucial for efficient monitoring, filtering, and troubleshooting.
+
+---
+class: center, middle
+
+Tags help **group resources, correlate logs, and create meaningful dashboards and alerts**.
+
+---
+class: center, middle
+
+#### **1. Define a Clear Tagging Strategy**
+
+---
+
+📌 **Why?** Standardized tags improve searchability and avoid duplication.
+
+---
+class: center, middle
+
 Code
 https://github.com/AgarwalConsulting/datadog-training
 

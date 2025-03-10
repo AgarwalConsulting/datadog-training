@@ -1,6 +1,6 @@
 # DataDog Agent Installation
 
-- Log in as `gaurav@codermana.com` with Region: `us-east-1` on `https://app.datadoghq.com/account/login`
+- Log in as `namaste@codermana.com` with Region: `us-east-1` on `https://app.datadoghq.com/account/login`
 
 > Password will be shared separately!
 
@@ -9,3 +9,5 @@
 - Download and install the agent as shown in the screen, copy and enter the key and leave the Region as `datadoghq.com`.
 
 - Go to Infrastructure Dashboard: `https://app.datadoghq.com/infrastructure/map` and verify if your node appears!
+
+- Change the Hostname if you are unable  Settings -> System Settings -> About ->'Rename this PC'
