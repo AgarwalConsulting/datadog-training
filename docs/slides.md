@@ -1000,6 +1000,11 @@ and it's configuration
 ---
 class: center, middle
 
+### [DataDog Client Libraries](https://docs.datadoghq.com/developers/community/libraries/)
+
+---
+class: center, middle
+
 Code
 https://github.com/AgarwalConsulting/datadog-training
 
