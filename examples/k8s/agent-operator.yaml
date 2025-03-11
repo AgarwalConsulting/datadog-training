@@ -23,16 +23,16 @@ spec:
     logCollection:
       enabled: true
       containerCollectAll: true
-    kubeStateMetricsCore:
-      enabled: true
-    liveProcessCollection:
-      enabled: true
-    liveContainerCollection:
-      enabled: true
-    apm:
-      enabled: true
-    npm:
-      enabled: true
-    prometheusScrape:
-      enabled: true
-      enableServiceEndpoints: true
+    # kubeStateMetricsCore:
+    #   enabled: true
+    # liveProcessCollection:
+    #   enabled: true
+    # liveContainerCollection:
+    #   enabled: true
+    # apm:
+    #   enabled: true
+    # npm:
+    #   enabled: true
+    # prometheusScrape:
+    #   enabled: true
+    #   enableServiceEndpoints: true
