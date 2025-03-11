@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-./kind-cluster-delete.sh
+./scripts/windows/kind-cluster-delete.sh
