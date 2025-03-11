@@ -1779,8 +1779,11 @@ class: center, middle
 `datadog.networkMonitoring.enabled`
 
 ---
+class: center, middle
 
 ### **✅ Essential Network Performance Metrics**
+
+---
 
 | **Metric** | **Description** | **DataDog Metric Name** |
 |------------|---------------|------------------|
@@ -1901,8 +1904,11 @@ class: center, middle
 ## Query Performance Monitoring (QPM) in SQL Server
 
 ---
+class: center, middle
 
 ### **✅ Enable Query Execution Monitoring**
+
+---
 
 1️⃣ **Enable `sys.dm_exec_requests` Query Collection**
 
