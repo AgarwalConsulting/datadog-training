@@ -3,3 +3,4 @@ spring-petclinic
 .env
 artifacts
 opentelemetry-demo/
+tsre-microservices
