@@ -6,9 +6,9 @@ set -e
 
 # git clone https://github.com/open-telemetry/opentelemetry-demo.git || echo "Already cloned..."
 
-echo "Creating cluster..."
+echo "Connecting to EKS cluster..."
 
-./scripts/windows/kind-cluster-create.sh
+./scripts/trainer/access-eks.sh
 
 echo "Configuring agent..."
 

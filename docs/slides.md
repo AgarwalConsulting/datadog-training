@@ -1606,6 +1606,78 @@ class: center, middle
 ---
 class: center, middle
 
+### Bonus: Anomaly Detection for Unusual Spikes
+
+---
+class: center, middle
+
+Catch sudden, unexpected changes in CPU, memory, or request latency
+
+---
+
+*Steps:*
+
+1️⃣ **Go to** `Monitors → Create Monitor → Anomaly Detection`
+
+2️⃣ Select `Metric: system.cpu.user{service:petclinic}`
+
+3️⃣ Choose **"Automatic Thresholds"**
+
+---
+class: center, middle
+
+#### Built-in Anomaly Detection
+
+DataDog also provides **automatic anomaly detection** for key metrics.
+
+---
+class: center, middle
+
+`Monitors → Create Monitor → Anomaly Detection`
+
+---
+
+##### ✅ Java Application Anomalies
+
+- **Abnormal Heap Memory Growth**
+
+- **Unexpected Spikes in HTTP Response Time**
+
+- **Unusual Garbage Collection Behavior**
+
+---
+
+##### ✅ Kubernetes Anomalies
+
+- **Pods Restarting More Than Usual**
+
+- **Sudden Increase in API Latency**
+
+- **Container CPU Spikes Compared to Baseline**
+
+---
+
+##### ✅ AWS Anomalies
+
+- **EC2 CPU or Network Traffic Sudden Changes**
+
+- **RDS Query Duration Irregular Spikes**
+
+- **S3 Unexpected High Error Rate**
+
+---
+
+📌 **How to enable?**
+
+1️⃣ **Go to** `Monitors → Recommended Monitors → Enable Anomalies`
+
+2️⃣ **Select Sensitivity** (`Aggressive, Moderate, Conservative`)
+
+3️⃣ **Enable Slack, PagerDuty, or Email notifications**
+
+---
+class: center, middle
+
 Code
 https://github.com/AgarwalConsulting/datadog-training
 
