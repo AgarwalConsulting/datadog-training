@@ -41,3 +41,17 @@ service:petclinic AND db.duration:>1000ms
 ```
 
 ✅ **Now, get notified when queries slow down!**
+
+---
+
+## 🌐 Alert for Slow API Responses
+
+1️⃣ **Go to** `Monitors → Create Monitor → APM HTTP Monitor`
+
+2️⃣ Query:
+
+```plaintext
+avg(last_5m):trace.http.request{service:petclinic} > 5000
+```
+
+✅ **Now, API slowness will be detected early!**

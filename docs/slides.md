@@ -1468,7 +1468,7 @@ class: center, middle
 ---
 class: center, middle
 
-## DataDog Dashboards & Alerts
+## DataDog Dashboards
 
 ---
 class: center, middle
@@ -1533,7 +1533,75 @@ class: center, middle
 ---
 class: center, middle
 
-*Exercise:* Create a dashboard for PetClinic
+*Exercise*: Create a dashboard for PetClinic
+
+---
+class: center, middle
+
+## Alerting
+
+---
+class: center, middle
+
+### Built-in Monitors (Alerts)
+
+---
+
+### 🚨 **Built-in Alerts for Java Applications**
+
+- **Go to** → `Monitors → New Monitor → JVM`
+
+- Select from **pre-configured JVM alerts** like:
+
+  - **High Heap Memory Usage**
+
+  - **High GC Activity**
+
+  - **Too Many Open Threads**
+
+  - **Slow HTTP Requests**
+
+---
+
+### 🚨 **Built-in Kubernetes Alerts**
+
+- **Go to** → `Monitors → New Monitor → Kubernetes`
+
+- Select pre-built alerts for:
+
+  - **Node CPU or Memory Pressure**
+
+  - **Pod CrashLoopBackOff**
+
+  - **High API Server Latency**
+
+  - **Failed Container Starts**
+
+---
+
+### 🚨 **Built-in AWS Alerts**
+
+- **Go to** → `Monitors → New Monitor → AWS**
+
+- Select from **default AWS alerts**, including:
+
+  - **EC2 CPU Spikes**
+
+  - **RDS High Query Latency**
+
+  - **S3 5xx Errors**
+
+  - **Lambda Execution Failures**
+
+---
+class: center, middle
+
+### Custom Alerts
+
+---
+class: center, middle
+
+*Exercise*: Setup custom alerts for PetClinic
 
 ---
 class: center, middle
