@@ -1468,6 +1468,76 @@ class: center, middle
 ---
 class: center, middle
 
+## DataDog Dashboards & Alerts
+
+---
+class: center, middle
+
+### Built-in Dashboards
+
+---
+
+#### ✅ Java Application Dashboard
+
+- **Go to** → `DataDog UI → Dashboards → New Dashboard → Import from List`
+
+- Select **"JVM Overview"**
+
+- This **pre-built** dashboard includes:
+
+  - **JVM Heap & Non-Heap Memory Usage**
+
+  - **Thread Count & Garbage Collection (GC) Activity**
+
+  - **CPU & Memory Consumption**
+
+  - **Active Database Connections**
+
+---
+
+#### ✅ Kubernetes Dashboard (EKS & EC2)
+
+- **Go to** → `Dashboards → New Dashboard → Kubernetes`
+
+- DataDog provides a **default Kubernetes dashboard**:
+
+  - **Pod & Node CPU & Memory Usage**
+
+  - **Pod Restarts & CrashLoops**
+
+  - **Network Traffic**
+
+  - **Kube API Server Requests**
+
+---
+
+### ✅ **AWS Resource Dashboard**
+
+- **Go to** → `Dashboards → New Dashboard → AWS`
+
+- This includes built-in dashboards for:
+
+  - **EC2 Instances (CPU, Memory, Disk IO)**
+
+  - **RDS Query Performance & Slow Queries**
+
+  - **S3 Storage & Errors**
+
+  - **Lambda Execution Time & Invocations**
+
+---
+class: center, middle
+
+### Creating custom dashboards
+
+---
+class: center, middle
+
+*Exercise:* Create a dashboard for PetClinic
+
+---
+class: center, middle
+
 Code
 https://github.com/AgarwalConsulting/datadog-training
 
