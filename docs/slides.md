@@ -1795,6 +1795,265 @@ class: center, middle
 ---
 class: center, middle
 
+*Exercise*: Creating a Network Performance Dashboard for K8s
+
+---
+class: center, middle
+
+### Kubernetes Network Performance Monitoring with CNI & DataDog
+
+---
+class: center, middle
+
+What is CNI in Kubernetes?
+
+---
+
+**Container Network Interface (CNI)** is the **networking layer** in Kubernetes responsible for:
+
+✔ Assigning **IP addresses** to Pods
+
+✔ Setting up **routes** for inter-pod communication
+
+✔ Enforcing **network policies** for security
+
+✔ Handling **network overlays** (if applicable)
+
+---
+
+**Popular CNIs** & How They Work:
+
+| **CNI** | **Type** | **How it Works** |
+|---------|---------|----------------|
+| **Calico** | L3 | Uses BGP for pod networking & security policies |
+| **Cilium** | L3/L7 | eBPF-based for efficient networking & observability |
+| **Flannel** | L2 | Simple overlay networking with VXLAN |
+| **AWS VPC CNI** | L3 | Assigns ENIs (Elastic Network Interfaces) directly in AWS VPC |
+| **Weave** | L2/L3 | Uses VXLAN & IP routing for networking |
+
+---
+class: center, middle
+
+📌 **Why This Matters?** Different CNIs expose **different metrics** that impact network monitoring.
+
+---
+class: center, middle
+
+#### **📌 CNI-Specific Monitoring Strategies**
+
+---
+
+##### **✅ Cilium CNI Monitoring**
+
+📌 **Monitor eBPF-based networking, L7 security, and service connectivity.**
+
+1️⃣ **Enable Cilium Hubble for Observability**
+```sh
+helm upgrade --install cilium cilium/cilium \
+  --set hubble.enabled=true \
+  --set hubble.relay.enabled=true \
+  --set hubble.ui.enabled=true
+```
+
+2️⃣ **Metrics in DataDog**
+
+- **Packet Drops**: `cilium.policy.drops`
+- **L7 HTTP Request Latency**: `cilium.http.request_duration_seconds`
+- **Service Connectivity**: `cilium.endpoint.state`
+
+3️⃣ **Create Alert: High Network Latency Between Services**
+
+```plaintext
+avg:cilium.http.request_duration_seconds{*} by {service} > 0.5
+```
+
+🚨 **Triggers if HTTP request latency between services is >500ms.**
+
+---
+
+##### **✅ AWS VPC CNI Monitoring**
+
+📌 **Monitor AWS ENI allocation, bandwidth limits & dropped packets.**
+
+1️⃣ **Enable AWS VPC CNI Metrics Collection**
+
+```sh
+kubectl set env daemonset/aws-node -n kube-system ENABLE_VPC_CNI_PROMETHEUS=true
+```
+
+2️⃣ **Metrics in DataDog**
+
+- **ENI Allocation**: `aws.vpc_cni.enis_allocated`
+- **IP Addresses Per ENI**: `aws.vpc_cni.ipv4_addresses_per_eni`
+- **Packet Drops**: `aws.vpc_cni.dropped_packets`
+
+3️⃣ **Create Alert: Running Out of ENIs**
+
+```plaintext
+avg:aws.vpc_cni.enis_allocated{*} by {region} > 80
+```
+
+🚨 **Triggers if more than 80% of ENIs are allocated.**
+
+---
+class: center, middle
+
+## Query Performance Monitoring (QPM) in SQL Server
+
+---
+
+### **✅ Enable Query Execution Monitoring**
+
+1️⃣ **Enable `sys.dm_exec_requests` Query Collection**
+
+Edit `/etc/datadog-agent/conf.d/sqlserver.d/conf.yaml`:
+
+```yaml
+query_metrics:
+  - name: "long_running_queries"
+    query: |
+      SELECT session_id, start_time, total_elapsed_time/1000 as duration_ms, command, database_id
+      FROM sys.dm_exec_requests
+      WHERE total_elapsed_time > 5000
+    columns:
+      - name: session_id
+        type: tag
+      - name: start_time
+        type: tag
+      - name: duration_ms
+        type: gauge
+      - name: command
+        type: tag
+```
+
+2️⃣ **Restart DataDog Agent**
+
+```sh
+sudo systemctl restart datadog-agent
+```
+
+✅ **Now you can track long-running queries in DataDog!**
+
+---
+class: center, middle
+
+## **🚀 DataDog AWS Integration Best Practices**
+
+---
+class: center, middle
+
+Setting up **DataDog with AWS** requires best practices for **security, cost optimization, and effective monitoring**.
+
+---
+
+✔ **IAM Role Setup & Security Best Practices**
+
+✔ **Optimizing AWS API Calls (Cost & Performance)**
+
+✔ **Key AWS Services to Monitor**
+
+✔ **Dashboards & Alerts Best Practices**
+
+✔ **Anomaly Detection & Auto-Tagging**
+
+✔ **Managing Multi-Account AWS Monitoring**
+
+---
+
+### **✅ Use IAM Role-Based Authentication**
+
+🔹 Instead of static access keys, **create an IAM Role** for DataDog with cross-account access.
+🔹 This improves **security** and avoids credential leaks.
+
+### **✅ Least Privilege IAM Permissions**
+
+Assign only the necessary permissions. **Use AWS Managed Policies**
+
+---
+class: center, middle
+
+✅ **Avoid using `AdministratorAccess`** to reduce security risks.
+
+---
+
+### **✅ Use AWS Tag-Based Filtering**
+
+Instead of pulling **all AWS services**, use tags to filter resources.
+
+📌 **Example: Allow only resources with `Environment=Production`**
+
+1️⃣ Go to **DataDog → AWS Integration**
+
+2️⃣ Under **"Limit metrics collection by tag"**, add:
+   ```yaml
+   Environment:Production
+   Service:WebApp
+   ```
+
+✅ This reduces unnecessary API calls and cost!
+
+---
+
+### **✅ Reduce High-Frequency API Calls**
+
+Some AWS API calls (like `DescribeInstances`) can be expensive.
+
+📌 **Best Practices:**
+
+- **Use CloudWatch Metrics** instead of `DescribeInstances` for EC2 metrics.
+
+- **Enable CloudWatch Metric Streams** for real-time, cost-efficient monitoring.
+
+- **Disable Unused AWS Services** in DataDog integration.
+
+---
+
+### **✅ EC2 & Auto Scaling**
+
+✔ Track **CPU, Memory, Disk, Network** (`aws.ec2.cpuutilization`)
+✔ Monitor **Auto Scaling events**
+✔ Alert on **high CPU, memory exhaustion, or instance failures**
+
+---
+
+### **✅ RDS (MySQL, PostgreSQL, SQL Server)**
+
+✔ **Key Metrics:**
+
+- CPU Utilization (`aws.rds.cpuutilization`)
+- Active Connections (`aws.rds.database_connections`)
+- Read/Write Latency (`aws.rds.read_latency`)
+
+---
+
+| **Metric** | **Description** | **DataDog Metric** |
+|------------|---------------|------------------|
+| **CPU Utilization** | Tracks SQL Server CPU load | `aws.rds.cpuutilization` |
+| **Memory Usage** | Measures available memory | `aws.rds.freeablememory` |
+| **Read/Write Latency** | Disk I/O performance | `aws.rds.read_latency`, `aws.rds.write_latency` |
+| **Database Connections** | Active connections count | `aws.rds.database_connections` |
+| **Deadlocks** | Number of deadlocks detected | `aws.rds.deadlocks` |
+| **Long-Running Queries** | Tracks slow queries | `sqlserver.queries.slow` |
+| **Lock Wait Time** | Time spent waiting for locks | `sqlserver.lock_waits` |
+
+---
+
+### **✅ Kubernetes (EKS) & Containers**
+
+✔ **Monitor Cluster Health (`aws.eks.node_count`)**
+✔ **Track Pod CPU/Memory Usage**
+✔ **Enable Log Collection with AWS FluentBit**
+
+---
+
+### **✅ Lambda & Serverless**
+
+✔ Monitor **Cold Start Latency (`aws.lambda.duration`)**
+✔ Track **Invocation Errors (`aws.lambda.errors`)**
+
+---
+class: center, middle
+
 Code
 https://github.com/AgarwalConsulting/datadog-training
 
