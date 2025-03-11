@@ -1391,6 +1391,16 @@ Key Service Metrics:
 - `service.request.count` → Total request count
 
 ---
+
+### AWS RDS Metrics shipped via AWS Integration
+
+- `aws.rds.cpuutilization`
+
+- `aws.rds.database_connections`
+
+- `aws.rds.query_execution_time`
+
+---
 class: center, middle
 
 ### Log Management with DataDog
@@ -1752,6 +1762,11 @@ class: center, middle
 class: center, middle
 
 *Exercise*: Simulating and troubleshooting issues in PetClinic
+
+---
+class: center, middle
+
+##### K8s Specific Troubleshooting
 
 ---
 class: center, middle
