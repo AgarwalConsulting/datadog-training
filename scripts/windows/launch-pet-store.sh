@@ -18,4 +18,5 @@ java -jar target/*.jar > logs/app.log
 #   -Ddd.logs.injection=true \
 #   -Ddd.profiling.enabled=true \
 #   -Ddd.trace.sample.rate=1.0 \
+#   -Ddd.runtime_metrics.enabled=true \
 #   -jar target/spring-petclinic-*.jar | tee logs/app.log
