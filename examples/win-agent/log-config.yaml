@@ -1,5 +1,13 @@
+# echo "logs_enabled: true" >> "C:\ProgramData\Datadog\datadog.yaml"
+# mkdir "C:\ProgramData\Datadog\conf.d\java.d" -Force
+# notepad "C:\ProgramData\Datadog\conf.d\java.d\conf.yaml"
+
 logs:
   - type: file
-    path: C:\\Users\\Administrator\\datadog-training\\spring-petclinic\\logs\\*.log
+    path: C:\\Users\\Administrator\\datadog-training\\spring-petclinic\\logs\\app.log
     service: petstore
     source: java
+    tags:
+      env: dev
+      team: backend
+      app: petclinic

@@ -7,7 +7,7 @@ spec:
     clusterName: "trainers-eks"
     registry: "public.ecr.aws/datadog"
     tags:
-      - "emp:gaurav"
+      - "belongs_to:gaurav"
     credentials:
       apiSecret:
         secretName: "datadog-secret"

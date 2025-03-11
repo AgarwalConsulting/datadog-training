@@ -1,0 +1,13 @@
+# echo "logs_enabled: true" >> /opt/datadog-agent/etc/datadog.yaml
+# mkdir -p ~/.datadog-agent/conf.d/java.d/
+# code ~/.datadog-agent/conf.d/java.d/conf.yaml
+
+logs:
+  - type: file
+    path: "/Users/gaurav/Developer/Training/DataDog/spring-petclinic/logs/app.log"
+    service: petstore
+    source: java
+    tags:
+      env: dev
+      team: backend
+      app: petclinic
