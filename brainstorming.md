@@ -14,7 +14,6 @@
 
 ---
 
-### **Datadog APM & Tracing**
 3. **A Kubernetes-based application monitored by Datadog APM is showing increased request latency. Logs indicate multiple instances of the same request being retried. How should you analyze the root cause?**
    a) Check distributed traces to see if retries are coming from the application or network layer.
    b) Increase the number of replicas for the affected service.
@@ -29,7 +28,6 @@
 
 ---
 
-### **Datadog Log Management & Security**
 5. **You are setting up Datadog Log Management for a financial application and notice that sensitive data (e.g., credit card numbers) is being logged. What is the best approach to mitigate risk while keeping logs useful?**
    a) Apply a Datadog log processing pipeline to redact sensitive information before indexing.
    b) Completely disable logging for sensitive services.
@@ -44,7 +42,6 @@
 
 ---
 
-### **Datadog Kubernetes & Cloud Integrations**
 7. **In a Kubernetes cluster monitored by Datadog, you notice a gradual increase in pod restarts for a critical service. The service is stateful and depends on an AWS RDS database. What is the best way to investigate the issue?**
    a) Use Datadog Infrastructure Metrics to check memory, CPU, and network trends over time.
    b) Immediately scale up the affected service.
@@ -59,7 +56,6 @@
 
 ---
 
-### **Advanced Datadog Alerting & Monitoring**
 9. **A team wants to set up an alert for increased API response times, but they want to avoid frequent false positives due to short-lived traffic spikes. What is the best Datadog feature to use?**
    a) Anomaly detection with a baseline over historical data.
    b) A simple threshold-based monitor with a fixed latency value.
@@ -68,15 +64,7 @@
 
 ---
 
-Would you like **case-study-based** or **real-world incident resolution** MCQs next? 🚀
-
----
-
-Here are **case-study-based, real-world incident resolution MCQs** at **Bloom's Taxonomy Level 4 (Analysis)** with varied correct answer options:
-
----
-
-### **1. Incident: Increased Latency in Microservices**
+1. Incident: Increased Latency in Microservices
 Your observability dashboard shows that an API response time has doubled over the past 30 minutes. APM traces indicate that a specific service is responsible, with most of the delay coming from database queries. Infrastructure metrics show no abnormal CPU or memory usage.
 
 **What should you investigate next?**
@@ -87,7 +75,7 @@ d) Enable debug-level logging to capture more details in production.
 
 ---
 
-### **2. Incident: High 5xx Errors in a Kubernetes Service**
+2. Incident: High 5xx Errors in a Kubernetes Service
 Your team deploys a new version of a microservice running on Kubernetes. Shortly after, the error rate jumps from **0.5% to 8%**. Datadog logs show frequent **"connection reset"** errors. Metrics reveal that pod restarts have increased, and APM traces show requests failing during database calls.
 
 **What is the best next step?**
@@ -98,7 +86,7 @@ d) Manually restart all pods to clear any transient errors.
 
 ---
 
-### **3. Incident: Datadog Alert for High Memory Usage**
+3. Incident: Datadog Alert for High Memory Usage
 A Datadog monitor alerts you that a specific containerized service is using **85% of available memory** and rising. Further analysis shows that memory usage does not drop, even after load decreases.
 
 **How should you investigate?**
@@ -109,7 +97,7 @@ d) Reduce the load balancer’s traffic to the affected container.
 
 ---
 
-### **4. Incident: Sudden Traffic Drop in an EKS Service**
+4. Incident: Sudden Traffic Drop in an EKS Service
 A Kubernetes-based service running on Amazon EKS suddenly shows a **60% drop in incoming traffic**. There are **no deployment changes**, and no alerts were triggered for high error rates or resource exhaustion. Datadog Network Performance Monitoring (NPM) indicates a **drop in inbound requests** from external clients.
 
 **What is the most likely cause?**
@@ -120,7 +108,7 @@ d) Kubernetes HPA (Horizontal Pod Autoscaler) reducing the number of replicas.
 
 ---
 
-### **5. Incident: Spikes in RDS Query Latency Without High CPU Usage**
+5. Incident: Spikes in RDS Query Latency Without High CPU Usage
 Your Datadog monitoring dashboard shows that **query execution time on Amazon RDS has doubled**, but CPU and memory utilization remain stable. APM traces reveal that **only certain queries experience slow execution times**.
 
 **What is the best way to analyze this issue?**
@@ -131,7 +119,7 @@ d) Increase the connection pool size to allow more concurrent queries.
 
 ---
 
-### **6. Incident: Alerts Triggering for Short-Lived CPU Spikes**
+6. Incident: Alerts Triggering for Short-Lived CPU Spikes
 Your team receives multiple alerts for high CPU usage, but Datadog’s dashboards show that **CPU usage returns to normal within seconds**. Developers complain about **too many false alerts**.
 
 **How should you refine the alerting strategy?**
@@ -142,7 +130,7 @@ d) Disable alerts for CPU usage, as they are too noisy.
 
 ---
 
-### **7. Incident: Increased API Latency After Enabling Tracing**
+7. Incident: Increased API Latency After Enabling Tracing
 After enabling **100% request sampling** in Datadog APM, your team notices a **5% increase in overall API latency**. Infrastructure metrics and logs show no errors.
 
 **What is the best approach to mitigate this?**
@@ -153,7 +141,7 @@ d) Ignore the issue, as the increased latency is expected.
 
 ---
 
-### **8. Incident: Unexpected Spikes in AWS Lambda Invocation Counts**
+8. Incident: Unexpected Spikes in AWS Lambda Invocation Counts
 Datadog logs reveal that a Lambda function has been invoked **10x more than usual** in the past hour. The function calls an external API, which is now rate-limiting requests. There are **no changes in infrastructure configuration**.
 
 **What should you check first?**
@@ -164,7 +152,7 @@ d) Scale up the external API service to handle more traffic.
 
 ---
 
-### **9. Incident: Logs Missing for a Kubernetes Service**
+9. Incident: Logs Missing for a Kubernetes Service
 A Kubernetes service logs transactions, but Datadog Log Management **stops receiving logs intermittently**. The service is still running, and there are **no log-related errors** in the application.
 
 **What should you investigate?**
@@ -175,7 +163,7 @@ d) Increase the log retention period in Datadog.
 
 ---
 
-## **1. Incident: Persistent Latency in a Microservices Architecture**
+1. Incident: Persistent Latency in a Microservices Architecture
 A team reports **consistent API latency** across multiple services in a **distributed system**. Datadog **traces show delays in multiple downstream services**, but there is no clear single point of failure. **Infrastructure metrics are stable** across all affected services.
 
 **Which approach provides the most effective long-term solution?**
@@ -186,7 +174,7 @@ d) Reduce request timeouts to fail faster and improve user experience.
 
 ---
 
-## **2. Incident: Datadog Alerts Are Too Noisy**
+2. Incident: Datadog Alerts Are Too Noisy
 Your team receives **frequent alerts** from Datadog, leading to **alert fatigue**. Engineers have started **ignoring alerts**, but a **real production outage** went unnoticed due to excessive false positives.
 
 **What is the best way to refine your alerting strategy?**
@@ -197,7 +185,7 @@ d) Turn off alerts for non-critical services to focus on the most important ones
 
 ---
 
-## **3. Incident: AWS RDS Performance Degradation**
+3. Incident: AWS RDS Performance Degradation
 A **PostgreSQL database on AWS RDS** is experiencing **query slowdowns**, but CPU, memory, and connections remain stable. A developer suggests **scaling up the instance**, while another recommends **query optimization**.
 
 **Which is the best course of action?**
@@ -208,7 +196,7 @@ d) Enable auto-scaling for RDS to dynamically adjust resources as needed.
 
 ---
 
-## **4. Decision: Selecting the Best Observability Strategy for Kubernetes**
+4. Decision: Selecting the Best Observability Strategy for Kubernetes
 Your company is running **a mix of managed EKS clusters and self-managed Kubernetes clusters**. Observability **must work seamlessly across both environments**.
 
 **Which Datadog implementation provides the most scalable observability solution?**
@@ -219,7 +207,7 @@ d) Deploy a custom logging and monitoring stack using OpenTelemetry and export d
 
 ---
 
-## **5. Ethical Dilemma: Logging Sensitive Data in Production**
+5. Ethical Dilemma: Logging Sensitive Data in Production
 A team discovers that **user passwords are being logged** in plaintext in Datadog. Removing them requires a **code change that will take a week to deploy**, but the **security team demands immediate action**.
 
 **What is the best immediate step?**
@@ -230,7 +218,7 @@ d) Compress logs to reduce their visibility while awaiting the code fix.
 
 ---
 
-## **6. Incident: Unexplained Pod Restarts in Kubernetes**
+6. Incident: Unexplained Pod Restarts in Kubernetes
 A **critical Kubernetes service** is experiencing **frequent pod restarts**. The Datadog **logs show no explicit errors**, but **traces reveal request timeouts** just before each restart.
 
 **What is the best approach to diagnose the root cause?**
@@ -241,7 +229,7 @@ d) Migrate the service to a larger Kubernetes node to ensure enough resources.
 
 ---
 
-## **7. Strategy: Reducing Costs in Datadog Without Losing Visibility**
+7. Strategy: Reducing Costs in Datadog Without Losing Visibility
 Your **Datadog bill has increased significantly** due to **high log ingestion and long retention periods**.
 
 **Which strategy reduces costs while maintaining effective observability?**
@@ -252,7 +240,7 @@ d) Reduce log retention to the minimum period allowed by Datadog.
 
 ---
 
-## **8. Observability Best Practices: Selecting the Right Metrics for SLOs**
+8. Observability Best Practices: Selecting the Right Metrics for SLOs
 Your team is defining **Service-Level Objectives (SLOs) for an API**. The SLO must capture **both performance and availability** without excessive noise.
 
 **Which metric should be prioritized?**
@@ -263,7 +251,7 @@ d) The **total number of log entries generated per minute**.
 
 ---
 
-## **1. Designing an Observability Strategy for a Multi-Cloud Setup**
+1. Designing an Observability Strategy for a Multi-Cloud Setup
 Your company is migrating to a **hybrid cloud environment** with **AWS, GCP, and on-prem Kubernetes clusters**. The **observability strategy must provide centralized visibility across all environments**, ensuring **consistent logs, metrics, and traces**.
 
 **Which approach would best achieve this goal?**
@@ -274,7 +262,7 @@ d) Configure separate Datadog accounts for AWS, GCP, and on-prem to isolate envi
 
 ---
 
-## **2. Architecting a Cost-Efficient Observability Stack**
+2. Architecting a Cost-Efficient Observability Stack
 Your team is **over budget** on Datadog due to **high log ingestion and APM trace sampling at 100%**. However, engineers still need **detailed troubleshooting capabilities when issues occur**.
 
 **What is the best way to design a cost-effective observability stack?**
@@ -285,7 +273,7 @@ d) Increase **log retention limits** in Datadog to reduce API calls for historic
 
 ---
 
-## **3. Designing an SLO-Driven Observability Model**
+3. Designing an SLO-Driven Observability Model
 Your organization wants to **transition from reactive monitoring to an SLO-based observability model** to **prioritize reliability over arbitrary alerts**.
 
 **What key design decision should you make first?**
@@ -296,7 +284,7 @@ d) Reduce logging levels to ERROR to minimize distractions from non-critical eve
 
 ---
 
-## **4. Designing an Auto-Healing System Using Observability Insights**
+4. Designing an Auto-Healing System Using Observability Insights
 Your **Kubernetes application** is experiencing **random pod failures** due to **unpredictable memory spikes**. Your team wants an **auto-healing mechanism** that responds dynamically.
 
 **How should you design this system using Datadog?**
@@ -307,7 +295,7 @@ d) Disable memory monitoring alerts and focus on application logs instead.
 
 ---
 
-## **5. Designing an Incident Response Workflow with Datadog**
+5. Designing an Incident Response Workflow with Datadog
 Your organization wants to **automate incident response** using Datadog, so engineers are alerted with the **right context and suggested actions**.
 
 **Which design ensures an effective incident response?**
@@ -318,7 +306,7 @@ d) Reduce alert thresholds to capture every potential issue before it escalates.
 
 ---
 
-## **6. Creating a Proactive Database Monitoring Strategy**
+6. Creating a Proactive Database Monitoring Strategy
 Your **PostgreSQL RDS database** experiences occasional slow queries, causing **spikes in API response times**. Your team wants a **proactive observability strategy** to prevent performance degradation.
 
 **How should you design this?**
@@ -329,7 +317,7 @@ d) Collect only **high-error queries** to reduce noise in monitoring dashboards.
 
 ---
 
-## **7. Designing an Anomaly Detection System for Financial Transactions**
+7. Designing an Anomaly Detection System for Financial Transactions
 A fintech company wants to **detect fraudulent transactions in real-time** using Datadog observability data.
 
 **Which design would provide the most effective fraud detection?**
@@ -340,7 +328,7 @@ d) Use **Datadog Log Parsing** to scan for keywords related to fraud.
 
 ---
 
-## **8. Designing a Business-Level Observability Dashboard**
+8. Designing a Business-Level Observability Dashboard
 Your **executive team** wants a Datadog dashboard that provides **business-level insights** rather than just technical metrics.
 
 **Which approach should you take?**
