@@ -1481,11 +1481,6 @@ class: center, middle
 ---
 class: center, middle
 
-#### Troubleshooting Performance Issues with DataDog APM
-
----
-class: center, middle
-
 ## DataDog Dashboards
 
 ---
@@ -1529,7 +1524,7 @@ class: center, middle
 
 ---
 
-### ✅ **AWS Resource Dashboard**
+#### ✅ **AWS Resource Dashboard**
 
 - **Go to** → `Dashboards → New Dashboard → AWS`
 
@@ -1599,7 +1594,7 @@ class: center, middle
 
 ### 🚨 **Built-in AWS Alerts**
 
-- **Go to** → `Monitors → New Monitor → AWS**
+- **Go to** → `Monitors → New Monitor → AWS`
 
 - Select from **default AWS alerts**, including:
 
@@ -1612,6 +1607,7 @@ class: center, middle
   - **Lambda Execution Failures**
 
 ---
+
 class: center, middle
 
 ### Custom Alerts
@@ -1692,6 +1688,70 @@ class: center, middle
 2️⃣ **Select Sensitivity** (`Aggressive, Moderate, Conservative`)
 
 3️⃣ **Enable Slack, PagerDuty, or Email notifications**
+
+---
+class: center, middle
+
+### Log-Based vs. Metric-Based Alerts in DataDog
+
+---
+
+DataDog supports **two primary types of alerts**:
+
+1️⃣ **Metric-Based Alerts** → Triggered when a metric (e.g., CPU, Memory, Request Latency) crosses a threshold.
+
+2️⃣ **Log-Based Alerts** → Triggered based on patterns in logs (e.g., error messages, failed authentication attempts).
+
+---
+
+📌 **Example: Alert on Too Many `ERROR` Logs in Kubernetes Pods**
+
+1️⃣ **Go to** → `Monitors → Create Monitor → Log Alert`
+
+2️⃣ **Query:**
+
+```plaintext
+@log.status:error AND @kubernetes.namespace:production
+```
+
+3️⃣ **Set trigger:** If **more than 10 error logs appear in 5 minutes**
+
+4️⃣ **Notify team** via Slack
+
+---
+
+📌 **Example: Detect when a Kubernetes container is killed due to Out of Memory (OOM)**
+
+1️⃣ **Go to** → `Monitors → Create Monitor → Log Alert`
+
+2️⃣ **Query:**
+
+  ```plaintext
+  @log.message:"OOMKilled" AND @kubernetes.namespace:production
+  ```
+
+3️⃣ **Trigger Condition:**
+
+Alert if **OOMKilled logs appear > 3 times in 10 minutes**
+
+---
+
+#### Summary: Which One to Use?
+
+| **Type**        | **Use Case** | **Example** |
+|---------------|------------|------------|
+| **Metric-Based Alerts** | System Performance | High CPU, Memory, Latency |
+| **Log-Based Alerts** | Error Messages, Security Events | Too many errors, Unauthorized access |
+
+---
+class: center, middle
+
+#### Troubleshooting Performance Issues with DataDog APM
+
+---
+class: center, middle
+
+*Exercise*: Simulating and troubleshooting issues in PetClinic
 
 ---
 class: center, middle
