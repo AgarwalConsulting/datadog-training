@@ -2054,6 +2054,224 @@ Some AWS API calls (like `DescribeInstances`) can be expensive.
 ---
 class: center, middle
 
+## **🔒 Security & Incident Response in DataDog**
+
+---
+class: center, middle
+
+DataDog provides **security monitoring, anomaly detection, and incident response tools** to detect and mitigate threats in cloud environments.
+
+---
+
+✔ **Security Monitoring for AWS, Kubernetes, and EC2**
+
+✔ **Threat Detection with Logs & Metrics**
+
+✔ **Anomaly Detection & Alerts**
+
+✔ **Incident Response & Forensics**
+
+✔ **Compliance & Audit Logging**
+
+---
+
+### **✅ Enable Security Monitoring in DataDog**
+
+Security monitoring requires **DataDog Security Monitoring** (SIEM) and **log ingestion**.
+
+📌 **To enable security monitoring:**
+1️⃣ **Go to** `Security → Security Signals`
+2️⃣ **Enable CloudTrail, VPC Flow Logs, Kubernetes Logs, and System Logs**
+3️⃣ Set up **Security Rules** to detect unauthorized access
+
+---
+
+📌 **Example: Detect AWS Root User Login**
+
+1️⃣ **Go to** `Security → Rules`
+2️⃣ Create a new rule:
+
+```yaml
+security.rule:
+  name: "AWS Root User Login"
+  query: 'service:aws.cloudtrail @userIdentity.type:Root'
+  severity: "high"
+  notification: "@security-team"
+```
+
+🚨 **Triggers an alert if AWS root user logs in.**
+
+---
+
+### **✅ Security Log Monitoring**
+
+Collect logs from:
+
+- **AWS CloudTrail** (IAM activity, unauthorized access)
+- **VPC Flow Logs** (network anomalies)
+- **EC2 & Kubernetes Logs** (process anomalies)
+- **Application Logs** (authentication failures)
+
+---
+
+📌 **Example: Monitor Unauthorized SSH Access on EC2**
+
+1️⃣ **Enable log collection:**
+
+```yaml
+logs_enabled: true
+```
+
+2️⃣ **Create a log filter rule:**
+
+```yaml
+logs:
+  - type: file
+    path: /var/log/auth.log
+    source: ssh
+    service: security
+```
+
+3️⃣ **Set up a Security Rule:**
+
+```yaml
+security.rule:
+  name: "Unauthorized SSH Access"
+  query: 'service:ssh @status:failed'
+  severity: "medium"
+  notification: "@security-team"
+```
+
+🚨 **Triggers an alert when an SSH login fails multiple times.**
+
+---
+
+### **✅ Enable Anomaly Detection**
+
+1️⃣ **Go to** `Monitors → New Monitor → Anomaly Detection`
+
+2️⃣ Choose **metrics like CPU spikes, network traffic surges, or unauthorized logins**
+
+3️⃣ Set up thresholds for normal vs. abnormal behavior
+
+---
+
+📌 **Example: Detect Unusual Traffic in Kubernetes**
+
+```yaml
+avg:kubernetes.network.tx{namespace:prod} by {pod} > anomaly("basic", 2, direction=above)
+```
+
+🚨 **Triggers an alert when outbound traffic spikes unexpectedly.**
+
+---
+
+📌 **Common Security Anomaly Alerts**
+
+| **Threat** | **Metric/Log** | **DataDog Alert** |
+|------------|--------------|------------------|
+| **DDoS Attack** | High incoming traffic | `aws.vpc.network_in > anomaly(3x)` |
+| **Brute Force SSH Attack** | Failed SSH logins | `service:ssh @status:failed > 5 times in 10 min` |
+| **Unauthorized API Access** | AWS CloudTrail logs | `@eventName:AuthorizeSecurityGroupIngress` |
+| **Container Escape Attempt** | K8s audit logs | `kubernetes.audit @event:exec into privileged container` |
+
+---
+class: center, middle
+
+✅ **Security anomalies are automatically flagged in DataDog.**
+
+---
+
+### **✅ Set Up Incident Management in DataDog**
+
+📌 **Steps to Create an Incident Response Workflow:**
+
+1️⃣ **Go to** `Incident Management → Create Incident`
+
+2️⃣ **Define Severity Levels:**
+
+- 🔴 **Critical** (Service down, data breach)
+- 🟠 **High** (Unauthorized access, API abuse)
+- 🟡 **Medium** (Suspicious login attempt)
+
+3️⃣ **Assign Teams** (Security, DevOps, IT)
+
+4️⃣ **Attach Logs, Metrics, Dashboards for Analysis**
+
+---
+
+📌 **Example: Security Incident Response for EC2 Compromise**
+
+1️⃣ **Detect Unauthorized Access:**
+   - **Alert Triggered:** "Root login detected from unknown IP"
+
+2️⃣ **Investigate Logs & Network Traffic:**
+
+- **Check CloudTrail logs:**
+
+```sh
+aws cloudtrail lookup-events --lookup-attributes AttributeKey=EventName,AttributeValue=ConsoleLogin
+```
+
+- **Inspect EC2 network traffic:**
+
+```sh
+aws ec2 describe-flow-logs
+```
+
+3️⃣ **Mitigate the Threat:**
+
+- 🚨 **Revoke compromised IAM keys**
+- 🔒 **Restrict security group rules**
+- 🛑 **Quarantine the instance**
+
+---
+
+### **✅ Enable AWS Compliance Monitoring**
+
+📌 **To enable compliance monitoring:**
+
+1️⃣ **Go to** `Security → Compliance Monitoring`
+
+2️⃣ Enable **CIS AWS Foundations Benchmark**
+
+3️⃣ Monitor for:
+
+- **Public S3 Buckets**
+- **Unencrypted Databases**
+- **Overly Permissive IAM Roles**
+
+---
+
+📌 **Example: Detect Publicly Accessible S3 Buckets**
+
+```yaml
+security.rule:
+  name: "S3 Bucket Publicly Accessible"
+  query: 'service:aws.s3 @acl:public-read OR @acl:public-write'
+  severity: "critical"
+  notification: "@security-team"
+```
+
+🚨 **Triggers an alert when an S3 bucket is exposed to the public.**
+
+---
+
+📌 **Example: Detect Unrestricted Security Groups**
+
+```yaml
+security.rule:
+  name: "Security Group Open to the World"
+  query: 'service:aws.ec2 @IpPermissions:0.0.0.0/0'
+  severity: "high"
+  notification: "@security-team"
+```
+
+🚨 **Notifies if an EC2 security group is open to the public.**
+
+---
+class: center, middle
+
 Code
 https://github.com/AgarwalConsulting/datadog-training
 
