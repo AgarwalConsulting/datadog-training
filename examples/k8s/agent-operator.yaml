@@ -23,11 +23,11 @@ spec:
     logCollection:
       enabled: true
       containerCollectAll: true
-    # kubeStateMetricsEnabled: true
-    # processAgent:
+    # kubeStateMetricsCore:
     #   enabled: true
-    # containerRuntime:
-    #   collectContainerCount: true
+    # liveProcessCollection:
+    #   enabled: true
+    # liveContainerCollection:
+    #   enabled: true
     # apm:
     #   enabled: true
-    #   env: production
