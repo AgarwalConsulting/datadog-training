@@ -1190,6 +1190,8 @@ class: center, middle
   - `kubernetes_cluster:prod-cluster-1`
   - `kubernetes_cluster:staging-cluster-2`
 
+---
+
 **b) Using Tags in Monitors & Alerts**
 
 - Alert when **any pod in production exceeds 90% CPU usage**:
@@ -1197,6 +1199,8 @@ class: center, middle
 ```plaintext
 kubernetes_cluster:prod-cluster-1 AND metric:cpu.usage > 90
 ```
+
+---
 
 **c) Filtering Logs Using Tags**
 
@@ -1278,6 +1282,20 @@ java -javaagent:../artifacts/dd-java-agent.jar \
 class: center, middle
 
 #### Custom Application Metrics with DataDog StatsD
+
+---
+
+*Key Differences:* StatsD vs. dd-java-agent
+
+| Feature           | StatsD | dd-java-agent |
+|------------------|--------|--------------|
+| **Purpose** | Collects **custom metrics** | Collects **traces, profiling, and logs** |
+| **Best For** | Business logic metrics | Performance monitoring & debugging |
+| **Code Changes Required?** | Yes (you must instrument code) | No (auto-instrumentation) |
+| **Data Granularity** | Aggregated (e.g., avg, sum, percentile) | Per-request traces & profiling data |
+| **Example Metrics** | Request count, queue size, custom logic | DB queries, latency per function call, error rates |
+| **Integration** | Works with Datadog Agent (StatsD server) | Directly sends traces to Datadog |
+| **Overhead** | Low (UDP packets) | Moderate (agent overhead for tracing) |
 
 ---
 class: center, middle
