@@ -1240,6 +1240,53 @@ class: center, middle
 ---
 class: center, middle
 
+## Metrics, Logs & Tracing
+
+---
+class: center, middle
+
+### Java Application Monitoring with DataDog
+
+---
+
+Collecting logs via DataDog Agent:
+
+```yaml
+logs:
+  - type: file
+    path: C:\\Users\\Administrator\\datadog-training\\spring-petclinic\\logs\\*.log
+    service: petstore
+    source: java
+```
+
+---
+
+Enabling DataDog APM in PetClinic:
+
+```bash
+java -javaagent:../artifacts/dd-java-agent.jar \
+  -Ddd.service=petclinic-app \
+  -Ddd.env=prod \
+  -Ddd.version=1.0 \
+  -Ddd.logs.injection=true \
+  -Ddd.profiling.enabled=true \
+  -Ddd.trace.sample.rate=1.0 \
+  -jar target/spring-petclinic-*.jar
+```
+
+---
+class: center, middle
+
+#### Custom Application Metrics with DataDog StatsD
+
+---
+class: center, middle
+
+#### Distributed Tracing with DataDog APM
+
+---
+class: center, middle
+
 Code
 https://github.com/AgarwalConsulting/datadog-training
 
