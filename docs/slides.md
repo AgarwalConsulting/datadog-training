@@ -1287,6 +1287,187 @@ class: center, middle
 ---
 class: center, middle
 
+### Monitoring Kubernetes & Container Metrics with DataDog
+
+---
+
+#### **🔹 Node Metrics**
+
+- `kubernetes.cpu.usage.total` → CPU usage
+- `kubernetes.memory.usage` → Memory usage
+- `kubernetes.filesystem.usage` → Disk usage
+
+#### **🔹 Pod & Container Metrics**
+
+- `kubernetes.containers.running` → Running containers
+- `kubernetes.pods.ready` → Number of ready pods
+- `kubernetes.container.cpu.usage` → Container CPU
+- `kubernetes.container.memory.usage` → Container memory
+
+#### **🔹 Network Metrics**
+
+- `kubernetes.network.rx_bytes` → Incoming network traffic
+- `kubernetes.network.tx_bytes` → Outgoing network traffic
+
+---
+class: center, middle
+
+#### Monitoring Kubernetes Events & Logs
+
+---
+class: center, middle
+
+`kubeStateMetricsEnabled: true`
+
+---
+class: center, middle
+
+#### Container-Level Monitoring (Docker & Kubernetes)
+
+---
+class: center, middle
+
+```yaml
+  processAgent:
+    enabled: true
+  containerRuntime:
+    collectContainerCount: true
+```
+
+---
+
+Key Container Metrics:
+
+- `container.cpu.usage` → CPU % used
+
+- `container.memory.usage` → Memory used
+
+- `container.disk.read_bytes` → Disk reads
+
+- `container.network.bytes_sent` → Network usage
+
+---
+class: center, middle
+
+#### Kubernetes Service Monitoring
+
+Monitor high-level service health, request latency, and error rates
+
+---
+class: center, middle
+
+```yaml
+  apm:
+    enabled: true
+    env: production
+```
+
+---
+
+Key Service Metrics:
+
+- `service.response.time` → API latency
+
+- `service.error.rate` → % of failed requests
+
+- `service.request.count` → Total request count
+
+---
+class: center, middle
+
+### Log Management with DataDog
+
+---
+class: center, middle
+
+```yaml
+  logs:
+    enabled: true
+    containerCollectAll: true  # Collect all container logs
+```
+
+---
+class: center, middle
+
+#### Collecting AWS RDS Logs
+
+---
+
+##### Step 1: Enable RDS Log Export to CloudWatch:
+
+1️⃣ Open **AWS Console → RDS → Databases**
+
+2️⃣ Select your **RDS Instance**
+
+3️⃣ Go to **Log Exports** and enable:
+
+- **General Logs**
+- **Slow Query Logs**
+- **Error Logs**
+
+4️⃣ Click **Save Changes**
+
+---
+
+##### Step 2: Forward CloudWatch Logs to DataDog
+
+Use the AWS Lambda function provided by DataDog:
+
+```bash
+datadog-forwarder --function-name datadog-logs-forwarder
+```
+
+---
+class: center, middle
+
+#### ElasticSearch Log Integration with DataDog
+
+---
+
+🔹 Option 1: Enable ElasticSearch Logs on EKS & EC2
+
+🔹 Option 2: Forward ElasticSearch Logs via Logstash
+
+---
+class: center, middle
+
+### APM & Distributed Tracing with DataDog
+
+---
+
+Enabling APM in DataDog Agent (Local/VM):
+
+```yaml
+apm_config:
+  enabled: true
+```
+
+---
+class: center, middle
+
+Enabling APM in DataDog Agent (Kubernetes Helm)
+
+```yaml
+datadog:
+  apm:
+    enabled: true
+  logs:
+    enabled: true
+```
+
+---
+class: center, middle
+
+*Exercise*: Setup distributed tracing in PetClinic
+
+---
+class: center, middle
+
+#### Troubleshooting Performance Issues with DataDog APM
+
+---
+class: center, middle
+
 Code
 https://github.com/AgarwalConsulting/datadog-training
 

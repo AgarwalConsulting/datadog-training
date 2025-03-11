@@ -11,7 +11,36 @@ dd.env=prod
 dd.version=1.0
 ```
 
-## Step 2: Manually Add Tracing for Critical Functions
+For local agent, also add:
+
+```properties
+datadog.agent.host=localhost
+datadog.agent.port=8126
+```
+
+## Step 2: Add DataDog APM Dependencies
+
+For **Maven** (`pom.xml`):
+
+```xml
+<dependency>
+    <groupId>com.datadoghq</groupId>
+    <artifactId>dd-trace-api</artifactId>
+    <version>1.16.0</version>
+</dependency>
+```
+
+For **Gradle** (`build.gradle`):
+
+```gradle
+dependencies {
+    implementation 'com.datadoghq:dd-trace-api:1.16.0'
+}
+```
+
+✅ **Now, your app supports DataDog tracing.**
+
+## Step 3: Manually Add Tracing for Critical Functions
 
 Modify **OwnerController.java**:
 
@@ -36,3 +65,7 @@ public class OwnerController {
 - Every request to `/owners/{id}` is **traced** in DataDog.
 
 - You can **view execution time, dependencies, and DB queries**.
+
+## Extra challenge
+
+- Do the same for `/pets/...` endpoints
