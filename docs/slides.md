@@ -1969,6 +1969,7 @@ Setting up **DataDog with AWS** requires best practices for **security, cost opt
 ### **✅ Use IAM Role-Based Authentication**
 
 🔹 Instead of static access keys, **create an IAM Role** for DataDog with cross-account access.
+
 🔹 This improves **security** and avoids credential leaks.
 
 ### **✅ Least Privilege IAM Permissions**
@@ -2017,7 +2018,9 @@ Some AWS API calls (like `DescribeInstances`) can be expensive.
 ### **✅ EC2 & Auto Scaling**
 
 ✔ Track **CPU, Memory, Disk, Network** (`aws.ec2.cpuutilization`)
+
 ✔ Monitor **Auto Scaling events**
+
 ✔ Alert on **high CPU, memory exhaustion, or instance failures**
 
 ---
@@ -2027,7 +2030,9 @@ Some AWS API calls (like `DescribeInstances`) can be expensive.
 ✔ **Key Metrics:**
 
 - CPU Utilization (`aws.rds.cpuutilization`)
+
 - Active Connections (`aws.rds.database_connections`)
+
 - Read/Write Latency (`aws.rds.read_latency`)
 
 ---
@@ -2047,7 +2052,9 @@ Some AWS API calls (like `DescribeInstances`) can be expensive.
 ### **✅ Kubernetes (EKS) & Containers**
 
 ✔ **Monitor Cluster Health (`aws.eks.node_count`)**
+
 ✔ **Track Pod CPU/Memory Usage**
+
 ✔ **Enable Log Collection with AWS FluentBit**
 
 ---
@@ -2055,6 +2062,7 @@ Some AWS API calls (like `DescribeInstances`) can be expensive.
 ### **✅ Lambda & Serverless**
 
 ✔ Monitor **Cold Start Latency (`aws.lambda.duration`)**
+
 ✔ Track **Invocation Errors (`aws.lambda.errors`)**
 
 ---
@@ -2086,8 +2094,11 @@ DataDog provides **security monitoring, anomaly detection, and incident response
 Security monitoring requires **DataDog Security Monitoring** (SIEM) and **log ingestion**.
 
 📌 **To enable security monitoring:**
+
 1️⃣ **Go to** `Security → Security Signals`
+
 2️⃣ **Enable CloudTrail, VPC Flow Logs, Kubernetes Logs, and System Logs**
+
 3️⃣ Set up **Security Rules** to detect unauthorized access
 
 ---
@@ -2114,8 +2125,11 @@ security.rule:
 Collect logs from:
 
 - **AWS CloudTrail** (IAM activity, unauthorized access)
+
 - **VPC Flow Logs** (network anomalies)
+
 - **EC2 & Kubernetes Logs** (process anomalies)
+
 - **Application Logs** (authentication failures)
 
 ---
@@ -2209,7 +2223,8 @@ class: center, middle
 📌 **Example: Security Incident Response for EC2 Compromise**
 
 1️⃣ **Detect Unauthorized Access:**
-   - **Alert Triggered:** "Root login detected from unknown IP"
+
+- **Alert Triggered:** "Root login detected from unknown IP"
 
 2️⃣ **Investigate Logs & Network Traffic:**
 
@@ -2244,7 +2259,9 @@ aws ec2 describe-flow-logs
 3️⃣ Monitor for:
 
 - **Public S3 Buckets**
+
 - **Unencrypted Databases**
+
 - **Overly Permissive IAM Roles**
 
 ---
