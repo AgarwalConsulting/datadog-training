@@ -516,6 +516,286 @@ For example, for each monitored host, you’ll get (for enterprise account):
 ---
 class: center, middle
 
+## Let's get started...
+
+---
+class: center, middle
+
+### Signup/Login & Installation on Windows
+
+.content-credits[https://github.com/AgarwalConsulting/datadog-training/blob/master/Setup/Dashboard.md]
+
+---
+class: center, middle
+
+#### [Other Integrations](https://app.datadoghq.com/signup/agent)
+
+---
+class: center, middle
+
+## Setting up DataDog
+
+---
+class: center, middle
+
+### Understanding the Windows Agent
+
+.content-credits[https://docs.datadoghq.com/agent/basic_agent_usage/windows]
+
+---
+class: center, middle
+
+and it's configuration
+
+.content-credits[https://docs.datadoghq.com/agent/configuration/agent-configuration-files/?tab=agentv6v7]
+
+---
+class: center, middle
+
+### *Optional:* [On Kubernetes](https://docs.datadoghq.com/containers/kubernetes/)
+
+---
+class: center, middle
+
+### *Optional:* [DataDog Client Libraries](https://docs.datadoghq.com/developers/community/libraries/)
+
+---
+class: center, middle
+
+### *Optional:* **Integrating with AWS**
+
+.content-credits[https://docs.datadoghq.com/integrations/amazon_web_services/]
+
+---
+class: center, middle
+
+#### *Optional:* **Integrating DataDog with AWS RDS (SQL Server, PostgreSQL, MySQL, etc.)**
+
+---
+
+#### **Steps:**
+
+1️⃣ **Go to AWS Integration in DataDog**
+
+- Navigate to **Integrations** → **AWS** in DataDog UI.
+- Click **"Install Integration"** (if not installed).
+
+2️⃣ **Set Up an IAM Role for DataDog**
+
+- Create an **IAM Role** in AWS with a **CloudWatch Read-Only Policy**.
+- Attach the following policies:
+  - `CloudWatchReadOnlyAccess`
+  - `AWSRDSReadOnlyAccess`
+- Add a **trust policy** to allow DataDog to assume this role.
+
+---
+
+3️⃣ **Link DataDog to AWS**
+
+- In DataDog, go to **AWS Integration** settings.
+- Enter the **IAM Role ARN** created earlier.
+- Select **RDS service** for monitoring.
+
+4️⃣ **Enable Enhanced RDS Monitoring (Optional, Recommended)**
+
+- In AWS Console, go to **RDS → Modify DB Instance**.
+- Enable **Enhanced Monitoring** and select a **monitoring role**.
+- Choose **Granularity** (1s, 5s, 10s, etc.).
+
+---
+class: center, middle
+
+### **Best Practices for Tagging & Organizing Data in DataDog**
+
+---
+class: center, middle
+
+Proper **tagging and organization** in DataDog is crucial for efficient monitoring, filtering, and troubleshooting.
+
+---
+class: center, middle
+
+Tags help **group resources, correlate logs, and create meaningful dashboards and alerts**.
+
+---
+class: center, middle
+
+#### **1. Define a Clear Tagging Strategy**
+
+---
+class: center, middle
+
+📌 **Why?** Standardized tags improve searchability and avoid duplication.
+
+---
+
+- **Use a consistent key:value format** → e.g., `env:prod`, `team:payments`.
+
+- **Avoid redundant tags** → Don’t tag `env:prod` if all metrics in that group are production.
+
+- **Use lowercase and hyphens for readability** → `service:checkout-api`, not `Service_CheckoutAPI`.
+
+- **Limit the number of unique tag values** → Too many variations (`team:alice`, `team:bob`, `team:charlie`) make filtering hard.
+
+---
+class: center, middle
+
+#### **2. Essential Tags for Organizing Data**
+
+---
+class: center, middle
+
+📌 **Why?** Tags help **group related logs, metrics, traces, and monitors**.
+
+---
+
+**a) Environment Tags (Mandatory)**
+Used to separate different environments.
+- ✅ `env:dev`, `env:staging`, `env:prod`
+
+**b) Service & Component Tags**
+Identify services and their components.
+- ✅ `service:orders-api`, `service:billing-db`, `component:redis-cache`
+
+**c) Team Ownership Tags**
+Define responsibility for alerts and troubleshooting.
+- ✅ `team:payments`, `team:devops`, `team:security`
+
+**d) Cloud & Infrastructure Tags**
+Useful for multi-cloud or hybrid setups.
+- ✅ `cloud:aws`, `cloud:gcp`, `region:us-east-1`, `availability-zone:us-east-1a`
+
+**e) Kubernetes-Specific Tags**
+For tracking containers and pods.
+- ✅ `kubernetes_cluster:prod-cluster-1`, `namespace:monitoring`, `pod:web-frontend`
+
+**f) Security & Compliance Tags**
+For tracking sensitive data handling.
+- ✅ `compliance:gdpr`, `data_classification:sensitive`
+
+---
+class: center, middle
+
+*Example Usage:* Filtering all **production errors** for the **orders service**:
+
+```plaintext
+service:orders-api AND env:prod AND status:error
+```
+
+---
+class: center, middle
+
+#### **3. Automating Tagging for Consistency**
+
+---
+class: center, middle
+
+📌 **Why?** Manually tagging data is error-prone and time-consuming.
+
+---
+
+**a) Auto-Tagging with AWS, Kubernetes, and Cloud Integrations**
+
+- AWS resources inherit tags from EC2, RDS, and ECS.
+- Kubernetes automatically applies pod and namespace tags.
+
+**b) Use the DataDog Agent for Dynamic Tags**
+
+- The **DataDog Agent** can **auto-tag logs, metrics, and traces** from hosts and services.
+- Example: Adding **environment and region tags** dynamically.
+  ```yaml
+  tags:
+    - "env:prod"
+    - "region:us-west-2"
+    - "service:checkout"
+  ```
+
+**c) Enrich Logs with Custom Tags**
+
+- Add custom tags at log ingestion using the **DataDog Forwarder or Lambda Functions**.
+- Example (for AWS Lambda Logs in CloudWatch):
+
+```json
+{
+  "message": "Payment failed",
+  "ddtags": "service:payments,env:prod,status:error"
+}
+```
+
+---
+class: center, middle
+
+#### **4. Organizing Data Using Tags in DataDog**
+
+---
+class: center, middle
+
+📌 **Why?** Tags help in filtering, grouping, and visualizing data effectively.
+
+---
+
+**a) Using Tags in Dashboards**
+
+- Create widgets that group data by **service, environment, or team**.
+
+- Example: A **CPU usage graph per Kubernetes cluster**
+  - `kubernetes_cluster:prod-cluster-1`
+  - `kubernetes_cluster:staging-cluster-2`
+
+---
+
+**b) Using Tags in Monitors & Alerts**
+
+- Alert when **any pod in production exceeds 90% CPU usage**:
+
+```plaintext
+kubernetes_cluster:prod-cluster-1 AND metric:cpu.usage > 90
+```
+
+---
+
+**c) Filtering Logs Using Tags**
+
+- View all **API errors in production**:
+
+```plaintext
+service:api-gateway AND env:prod AND status:error
+```
+
+- Debug **failed database queries** in staging:
+```plaintext
+service:postgres-db AND env:staging AND query_status:failed
+```
+
+---
+class: center, middle
+
+#### **5. Cleaning Up & Optimizing Tags**
+
+---
+class: center, middle
+
+📌 **Why?** Too many unnecessary tags can slow down searches and clutter dashboards.
+
+---
+
+- **Remove unused tags** → If a tag is never used in filters or dashboards, drop it.
+
+- **Avoid high-cardinality tags** → Tags like `user_id:12345` create **too many unique values**, slowing queries.
+
+- **Review tags quarterly** → Ensure they follow naming conventions and remain relevant.
+
+---
+
+✅ **Example:**
+
+- 🚫 Bad: `user_id:1001`, `user_id:1002`, `user_id:1003` (Too many unique values)
+
+- ✅ Good: `user_type:enterprise`, `user_type:free`, `user_type:pro`
+
+---
+class: center, middle
+
 ## DataDog Capabilities
 
 ---
@@ -770,23 +1050,6 @@ class: center, middle
 ---
 class: center, middle
 
-## Let's get started...
-
----
-class: center, middle
-
-### Signup/Login & Installation on Windows
-
-.content-credits[https://github.com/AgarwalConsulting/datadog-training/blob/master/Setup/Dashboard.md]
-
----
-class: center, middle
-
-#### [Other Integrations](https://app.datadoghq.com/signup/agent)
-
----
-class: center, middle
-
 ## Navigating the DataDog UI
 
 ---
@@ -977,269 +1240,6 @@ class: center, middle
 class: center, middle
 
 [Navigation Summarised](https://github.com/AgarwalConsulting/datadog-training/blob/master/navigation.md)
-
----
-class: center, middle
-
-## Setting up DataDog
-
----
-class: center, middle
-
-### Understanding the Windows Agent
-
-.content-credits[https://docs.datadoghq.com/agent/basic_agent_usage/windows]
-
----
-class: center, middle
-
-and it's configuration
-
-.content-credits[https://docs.datadoghq.com/agent/configuration/agent-configuration-files/?tab=agentv6v7]
-
----
-class: center, middle
-
-### [On Kubernetes](https://docs.datadoghq.com/containers/kubernetes/)
-
----
-class: center, middle
-
-### [DataDog Client Libraries](https://docs.datadoghq.com/developers/community/libraries/)
-
----
-class: center, middle
-
-### **Integrating with AWS**
-
-.content-credits[https://docs.datadoghq.com/integrations/amazon_web_services/]
-
----
-class: center, middle
-
-#### **Integrating DataDog with AWS RDS (SQL Server, PostgreSQL, MySQL, etc.)**
-
----
-
-#### **Steps:**
-
-1️⃣ **Go to AWS Integration in DataDog**
-
-- Navigate to **Integrations** → **AWS** in DataDog UI.
-- Click **"Install Integration"** (if not installed).
-
-2️⃣ **Set Up an IAM Role for DataDog**
-
-- Create an **IAM Role** in AWS with a **CloudWatch Read-Only Policy**.
-- Attach the following policies:
-  - `CloudWatchReadOnlyAccess`
-  - `AWSRDSReadOnlyAccess`
-- Add a **trust policy** to allow DataDog to assume this role.
-
----
-
-3️⃣ **Link DataDog to AWS**
-
-- In DataDog, go to **AWS Integration** settings.
-- Enter the **IAM Role ARN** created earlier.
-- Select **RDS service** for monitoring.
-
-4️⃣ **Enable Enhanced RDS Monitoring (Optional, Recommended)**
-
-- In AWS Console, go to **RDS → Modify DB Instance**.
-- Enable **Enhanced Monitoring** and select a **monitoring role**.
-- Choose **Granularity** (1s, 5s, 10s, etc.).
-
----
-class: center, middle
-
-### **Best Practices for Tagging & Organizing Data in DataDog**
-
----
-class: center, middle
-
-Proper **tagging and organization** in DataDog is crucial for efficient monitoring, filtering, and troubleshooting.
-
----
-class: center, middle
-
-Tags help **group resources, correlate logs, and create meaningful dashboards and alerts**.
-
----
-class: center, middle
-
-#### **1. Define a Clear Tagging Strategy**
-
----
-class: center, middle
-
-📌 **Why?** Standardized tags improve searchability and avoid duplication.
-
----
-
-- **Use a consistent key:value format** → e.g., `env:prod`, `team:payments`.
-
-- **Avoid redundant tags** → Don’t tag `env:prod` if all metrics in that group are production.
-
-- **Use lowercase and hyphens for readability** → `service:checkout-api`, not `Service_CheckoutAPI`.
-
-- **Limit the number of unique tag values** → Too many variations (`team:alice`, `team:bob`, `team:charlie`) make filtering hard.
-
----
-class: center, middle
-
-#### **2. Essential Tags for Organizing Data**
-
----
-class: center, middle
-
-📌 **Why?** Tags help **group related logs, metrics, traces, and monitors**.
-
----
-
-**a) Environment Tags (Mandatory)**
-Used to separate different environments.
-- ✅ `env:dev`, `env:staging`, `env:prod`
-
-**b) Service & Component Tags**
-Identify services and their components.
-- ✅ `service:orders-api`, `service:billing-db`, `component:redis-cache`
-
-**c) Team Ownership Tags**
-Define responsibility for alerts and troubleshooting.
-- ✅ `team:payments`, `team:devops`, `team:security`
-
-**d) Cloud & Infrastructure Tags**
-Useful for multi-cloud or hybrid setups.
-- ✅ `cloud:aws`, `cloud:gcp`, `region:us-east-1`, `availability-zone:us-east-1a`
-
-**e) Kubernetes-Specific Tags**
-For tracking containers and pods.
-- ✅ `kubernetes_cluster:prod-cluster-1`, `namespace:monitoring`, `pod:web-frontend`
-
-**f) Security & Compliance Tags**
-For tracking sensitive data handling.
-- ✅ `compliance:gdpr`, `data_classification:sensitive`
-
----
-class: center, middle
-
-*Example Usage:* Filtering all **production errors** for the **orders service**:
-
-```plaintext
-service:orders-api AND env:prod AND status:error
-```
-
----
-class: center, middle
-
-#### **3. Automating Tagging for Consistency**
-
----
-class: center, middle
-
-📌 **Why?** Manually tagging data is error-prone and time-consuming.
-
----
-
-**a) Auto-Tagging with AWS, Kubernetes, and Cloud Integrations**
-
-- AWS resources inherit tags from EC2, RDS, and ECS.
-- Kubernetes automatically applies pod and namespace tags.
-
-**b) Use the DataDog Agent for Dynamic Tags**
-
-- The **DataDog Agent** can **auto-tag logs, metrics, and traces** from hosts and services.
-- Example: Adding **environment and region tags** dynamically.
-  ```yaml
-  tags:
-    - "env:prod"
-    - "region:us-west-2"
-    - "service:checkout"
-  ```
-
-**c) Enrich Logs with Custom Tags**
-
-- Add custom tags at log ingestion using the **DataDog Forwarder or Lambda Functions**.
-- Example (for AWS Lambda Logs in CloudWatch):
-
-```json
-{
-  "message": "Payment failed",
-  "ddtags": "service:payments,env:prod,status:error"
-}
-```
-
----
-class: center, middle
-
-#### **4. Organizing Data Using Tags in DataDog**
-
----
-class: center, middle
-
-📌 **Why?** Tags help in filtering, grouping, and visualizing data effectively.
-
----
-
-**a) Using Tags in Dashboards**
-
-- Create widgets that group data by **service, environment, or team**.
-
-- Example: A **CPU usage graph per Kubernetes cluster**
-  - `kubernetes_cluster:prod-cluster-1`
-  - `kubernetes_cluster:staging-cluster-2`
-
----
-
-**b) Using Tags in Monitors & Alerts**
-
-- Alert when **any pod in production exceeds 90% CPU usage**:
-
-```plaintext
-kubernetes_cluster:prod-cluster-1 AND metric:cpu.usage > 90
-```
-
----
-
-**c) Filtering Logs Using Tags**
-
-- View all **API errors in production**:
-
-```plaintext
-service:api-gateway AND env:prod AND status:error
-```
-
-- Debug **failed database queries** in staging:
-```plaintext
-service:postgres-db AND env:staging AND query_status:failed
-```
-
----
-class: center, middle
-
-#### **5. Cleaning Up & Optimizing Tags**
-
----
-class: center, middle
-
-📌 **Why?** Too many unnecessary tags can slow down searches and clutter dashboards.
-
----
-
-- **Remove unused tags** → If a tag is never used in filters or dashboards, drop it.
-
-- **Avoid high-cardinality tags** → Tags like `user_id:12345` create **too many unique values**, slowing queries.
-
-- **Review tags quarterly** → Ensure they follow naming conventions and remain relevant.
-
----
-
-✅ **Example:**
-
-- 🚫 Bad: `user_id:1001`, `user_id:1002`, `user_id:1003` (Too many unique values)
-
-- ✅ Good: `user_type:enterprise`, `user_type:free`, `user_type:pro`
 
 ---
 class: center, middle
