@@ -1,6 +1,10 @@
 # Enable DataDog APM in Spring PetClinic
 
-From `datadog-training` directory, run `./scripts/windows/launch-pet-store.sh`.
+Using Git Bash, from `datadog-training` directory, run `./scripts/windows/launch-pet-store.sh`.
+
+Starts the pet clinic on: http://localhost:8080.
+
+Kill from CLI and then follow the steps below to monitor the Java Spring Pet Clinic application, without modifying the code...
 
 📌 **DataDog provides auto-instrumentation for Spring Boot apps**.
 

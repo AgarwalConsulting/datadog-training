@@ -11,3 +11,5 @@
 - Golang
 - VSCode
 - Datadog Agent
+
+- `./scripts/windows/launch-pet-store.sh`
