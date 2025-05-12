@@ -4,7 +4,7 @@ Using Git Bash, from `datadog-training` directory, run `./scripts/windows/launch
 
 Starts the pet clinic on: http://localhost:8080.
 
-Kill from CLI and then follow the steps below to monitor the Java Spring Pet Clinic application, without modifying the code...
+Kill from CLI (`Ctrl+C`) and then follow the steps below to monitor the Java Spring Pet Clinic application, without modifying the code...
 
 📌 **DataDog provides auto-instrumentation for Spring Boot apps**.
 
@@ -22,7 +22,9 @@ mv latest-java-tracer dd-java-agent.jar
 
 ## **🔹 Step 2: Update the Application Startup Command**
 
-Modify `mvn spring-boot:run` to include the DataDog agent:
+Make sure the `dd-java-agent.jar` file is present in `datadog-training/spring-petclinic` directory.
+
+And from `datadog-training/spring-petclinic`, run the following:
 
 ```bash
 java -javaagent:./dd-java-agent.jar \
