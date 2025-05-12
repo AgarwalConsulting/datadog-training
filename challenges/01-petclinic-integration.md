@@ -1,5 +1,7 @@
 # Enable DataDog APM in Spring PetClinic
 
+From `datadog-training` directory, run `./scripts/windows/launch-pet-store.sh`.
+
 📌 **DataDog provides auto-instrumentation for Spring Boot apps**.
 
 ## **🔹 Step 1: Download the DataDog Java Agent**
