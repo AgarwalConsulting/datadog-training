@@ -1871,7 +1871,7 @@ Slack integration goes beyond basic notifications:
 
 ---
 
-## 🧠 **Best Practices for Incident Handling & Notifications**
+### 🧠 **Best Practices for Incident Handling & Notifications**
 
 | Area                     | Best Practice                                                        |
 | ------------------------ | -------------------------------------------------------------------- |
@@ -1883,6 +1883,7 @@ Slack integration goes beyond basic notifications:
 | **Automation**           | Automate repetitive tasks using Datadog Workflows or scripts.        |
 
 ---
+class: center, middle
 
 ## [Datadog with Kubernetes/AWS](https://datadog-with-kubernetes-and-aws.slides.AgarwalConsulting.com)
 
