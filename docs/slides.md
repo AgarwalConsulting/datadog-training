@@ -885,43 +885,6 @@ class: center, middle
 ---
 class: center, middle
 
-**Database Monitoring** (AWS SQL Server on RDS)
-
----
-class: center, middle
-
-📌 **Why It Matters**: Database performance issues can cause **slow APIs, increased latencies, and application crashes**.
-
----
-
-- Supports **AWS RDS (SQL Server)** with query performance insights.
-
-- Query performance insights (**slow queries, deadlocks, missing indexes**).
-
-- **Connections & Locks Monitoring**: Track open connections, transaction locks.
-
-- **Query Execution Plans**: Analyze how SQL queries execute.
-
-- **Replication & Backup Monitoring**: Ensure database replication works as expected.
-
----
-
-🔹 **How It Works**:
-
-- Enable **RDS Enhanced Monitoring** in AWS.
-
-- Connect DataDog with **AWS Integration** for automatic ingestion of RDS metrics.
-
-- Use **Query Performance Monitoring (QPM)** to track execution times.
-
----
-class: center, middle
-
-*Example Use Case*: A **Java-based API running on Kubernetes** is slow when querying SQL Server. DataDog detects that a **missing index** is causing a **full table scan** on a large table. Adding the index **reduces query execution time from 2.5s to 200ms**.
-
----
-class: center, middle
-
 ### **3. Log Management**
 
 ---
