@@ -1743,10 +1743,13 @@ class: center, middle
 When a monitor enters an **alert** or **warning** state, it can trigger the automatic **creation of an incident** with a predefined severity level.
 
 ---
+class: center, middle
 
 ### **Datadog Incident Management Module**
 
-Datadog includes a first-class **Incident Management** module, similar to PagerDuty or Opsgenie, with:
+Datadog includes a first-class **Incident Management** module, similar to PagerDuty or Opsgenie.
+
+---
 
 #### 🔍 **Key Features**
 
