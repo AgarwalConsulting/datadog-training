@@ -1590,7 +1590,12 @@ class: center, middle
 ---
 class: center, middle
 
-**Composite Alerts** are advanced alerting rules in Datadog that **combine multiple alert conditions using boolean logic** (e.g., AND, OR, NOT). They allow you to trigger an alert **only when multiple related conditions are met**, helping reduce alert noise and prioritize truly critical issues.
+**Composite Alerts** are advanced alerting rules in Datadog that **combine multiple alert conditions using boolean logic** (e.g., AND, OR, NOT).
+
+---
+class: center, middle
+
+They allow you to trigger an alert **only when multiple related conditions are met**, helping reduce alert noise and prioritize truly critical issues.
 
 ---
 class: center, middle
