@@ -1305,104 +1305,6 @@ class: center, middle
 ---
 class: center, middle
 
-### Monitoring Kubernetes & Container Metrics with DataDog
-
----
-
-#### **🔹 Node Metrics**
-
-- `kubernetes.cpu.usage.total` → CPU usage
-- `kubernetes.memory.usage` → Memory usage
-- `kubernetes.filesystem.usage` → Disk usage
-
-#### **🔹 Pod & Container Metrics**
-
-- `kubernetes.containers.running` → Running containers
-- `kubernetes.pods.ready` → Number of ready pods
-- `kubernetes.container.cpu.usage` → Container CPU
-- `kubernetes.container.memory.usage` → Container memory
-
-#### **🔹 Network Metrics**
-
-- `kubernetes.network.rx_bytes` → Incoming network traffic
-- `kubernetes.network.tx_bytes` → Outgoing network traffic
-
----
-class: center, middle
-
-#### Monitoring Kubernetes Events & Logs
-
----
-class: center, middle
-
-`kubeStateMetricsEnabled: true`
-
----
-class: center, middle
-
-#### Container-Level Monitoring (Docker & Kubernetes)
-
----
-class: center, middle
-
-```yaml
-  processAgent:
-    enabled: true
-  containerRuntime:
-    collectContainerCount: true
-```
-
----
-
-Key Container Metrics:
-
-- `container.cpu.usage` → CPU % used
-
-- `container.memory.usage` → Memory used
-
-- `container.disk.read_bytes` → Disk reads
-
-- `container.network.bytes_sent` → Network usage
-
----
-class: center, middle
-
-#### Kubernetes Service Monitoring
-
-Monitor high-level service health, request latency, and error rates
-
----
-class: center, middle
-
-```yaml
-  apm:
-    enabled: true
-    env: production
-```
-
----
-
-Key Service Metrics:
-
-- `service.response.time` → API latency
-
-- `service.error.rate` → % of failed requests
-
-- `service.request.count` → Total request count
-
----
-
-### AWS RDS Metrics shipped via AWS Integration
-
-- `aws.rds.cpuutilization`
-
-- `aws.rds.database_connections`
-
-- `aws.rds.query_execution_time`
-
----
-class: center, middle
-
 ### Log Management with DataDog
 
 ---
@@ -1411,50 +1313,7 @@ class: center, middle
 ```yaml
   logs:
     enabled: true
-    containerCollectAll: true  # Collect all container logs
 ```
-
----
-class: center, middle
-
-#### Collecting AWS RDS Logs
-
----
-
-##### Step 1: Enable RDS Log Export to CloudWatch:
-
-1️⃣ Open **AWS Console → RDS → Databases**
-
-2️⃣ Select your **RDS Instance**
-
-3️⃣ Go to **Log Exports** and enable:
-
-- **General Logs**
-- **Slow Query Logs**
-- **Error Logs**
-
-4️⃣ Click **Save Changes**
-
----
-
-##### Step 2: Forward CloudWatch Logs to DataDog
-
-Use the AWS Lambda function provided by DataDog:
-
-```bash
-datadog-forwarder --function-name datadog-logs-forwarder
-```
-
----
-class: center, middle
-
-#### ElasticSearch Log Integration with DataDog
-
----
-
-🔹 Option 1: Enable ElasticSearch Logs on EKS & EC2
-
-🔹 Option 2: Forward ElasticSearch Logs via Logstash
 
 ---
 class: center, middle
@@ -1468,19 +1327,6 @@ Enabling APM in DataDog Agent (Local/VM):
 ```yaml
 apm_config:
   enabled: true
-```
-
----
-class: center, middle
-
-Enabling APM in DataDog Agent (Kubernetes Helm)
-
-```yaml
-datadog:
-  apm:
-    enabled: true
-  logs:
-    enabled: true
 ```
 
 ---
@@ -1515,38 +1361,6 @@ class: center, middle
   - **CPU & Memory Consumption**
 
   - **Active Database Connections**
-
----
-
-#### ✅ Kubernetes Dashboard (EKS & EC2)
-
-- **Go to** → `Dashboards → New Dashboard → Kubernetes`
-
-- DataDog provides a **default Kubernetes dashboard**:
-
-  - **Pod & Node CPU & Memory Usage**
-
-  - **Pod Restarts & CrashLoops**
-
-  - **Network Traffic**
-
-  - **Kube API Server Requests**
-
----
-
-#### ✅ **AWS Resource Dashboard**
-
-- **Go to** → `Dashboards → New Dashboard → AWS`
-
-- This includes built-in dashboards for:
-
-  - **EC2 Instances (CPU, Memory, Disk IO)**
-
-  - **RDS Query Performance & Slow Queries**
-
-  - **S3 Storage & Errors**
-
-  - **Lambda Execution Time & Invocations**
 
 ---
 class: center, middle
@@ -1586,38 +1400,6 @@ class: center, middle
 
 ---
 
-### 🚨 **Built-in Kubernetes Alerts**
-
-- **Go to** → `Monitors → New Monitor → Kubernetes`
-
-- Select pre-built alerts for:
-
-  - **Node CPU or Memory Pressure**
-
-  - **Pod CrashLoopBackOff**
-
-  - **High API Server Latency**
-
-  - **Failed Container Starts**
-
----
-
-### 🚨 **Built-in AWS Alerts**
-
-- **Go to** → `Monitors → New Monitor → AWS`
-
-- Select from **default AWS alerts**, including:
-
-  - **EC2 CPU Spikes**
-
-  - **RDS High Query Latency**
-
-  - **S3 5xx Errors**
-
-  - **Lambda Execution Failures**
-
----
-
 class: center, middle
 
 ### Custom Alerts
@@ -1625,79 +1407,7 @@ class: center, middle
 ---
 class: center, middle
 
-*Exercise*: Setup custom alerts for PetClinic
-
----
-class: center, middle
-
-### Bonus: Anomaly Detection for Unusual Spikes
-
----
-class: center, middle
-
-Catch sudden, unexpected changes in CPU, memory, or request latency
-
----
-
-*Steps:*
-
-1️⃣ **Go to** `Monitors → Create Monitor → Anomaly Detection`
-
-2️⃣ Select `Metric: system.cpu.user{service:petclinic}`
-
-3️⃣ Choose **"Automatic Thresholds"**
-
----
-class: center, middle
-
-#### Built-in Anomaly Detection
-
-DataDog also provides **automatic anomaly detection** for key metrics.
-
----
-class: center, middle
-
-`Monitors → Create Monitor → Anomaly Detection`
-
----
-
-##### ✅ Java Application Anomalies
-
-- **Abnormal Heap Memory Growth**
-
-- **Unexpected Spikes in HTTP Response Time**
-
-- **Unusual Garbage Collection Behavior**
-
----
-
-##### ✅ Kubernetes Anomalies
-
-- **Pods Restarting More Than Usual**
-
-- **Sudden Increase in API Latency**
-
-- **Container CPU Spikes Compared to Baseline**
-
----
-
-##### ✅ AWS Anomalies
-
-- **EC2 CPU or Network Traffic Sudden Changes**
-
-- **RDS Query Duration Irregular Spikes**
-
-- **S3 Unexpected High Error Rate**
-
----
-
-📌 **How to enable?**
-
-1️⃣ **Go to** `Monitors → Recommended Monitors → Enable Anomalies`
-
-2️⃣ **Select Sensitivity** (`Aggressive, Moderate, Conservative`)
-
-3️⃣ **Enable Slack, PagerDuty, or Email notifications**
+*Exercise*: Setup custom alerts
 
 ---
 class: center, middle
@@ -1756,541 +1466,351 @@ Alert if **OOMKilled logs appear > 3 times in 10 minutes**
 ---
 class: center, middle
 
+### Anomaly Detection for Unusual Spikes
+
+---
+class: center, middle
+
+Catch sudden, unexpected changes in CPU, memory, or request latency
+
+---
+class: center, middle
+
+Anomaly Detection in Datadog leverages machine learning (ML) algorithms to identify deviations from typical data patterns, helping to automatically spot unusual behavior in your systems without needing manual threshold configurations.
+
+---
+class: center, middle
+
+This can significantly enhance the efficiency of your monitoring system, ensuring that problems are detected earlier and with more accuracy.
+
+---
+class: center, middle
+
+#### How It Works
+
+---
+class: center, middle
+
+##### Machine Learning-Based
+
+Datadog uses unsupervised machine learning models to learn the normal behavior of your monitored metrics (e.g., CPU utilization, request latency, error rates).
+
+---
+class: center, middle
+
+This model continuously improves over time as it gets more data, allowing it to better understand your application's typical behavior.
+
+---
+class: center, middle
+
+##### Dynamic Baselines
+
+Instead of using fixed thresholds for triggering alerts, Datadog creates a dynamic baseline of normal behavior by analyzing historical data.
+
+---
+class: center, middle
+
+These baselines evolve with your environment, accounting for changes in traffic patterns, usage trends, and other variables.
+
+---
+
+#### Detection Methods
+
+- **Standard Deviation**: Measures how far off the current value is from the expected value.
+
+- **Seasonality Awareness**: Detects anomalies by considering the cyclical nature of data (e.g., traffic spikes at certain hours of the day).
+
+- **Contextual Detection**: Detects anomalies that are out of the ordinary compared to both historical patterns and surrounding conditions.
+
+---
+
+#### Benefits
+
+- **Reduced Alert Noise**: By focusing only on actual anomalies, you avoid bombarding teams with irrelevant alerts.
+
+- **Early Problem Detection**: Identifying unusual behavior helps teams respond faster to issues that would be hard to predict using traditional thresholds.
+
+- **Granular Detection**: It works with various types of metrics (e.g., logs, traces, custom metrics), allowing for deep insight into system health across the entire stack.
+
+---
+class: center, middle
+
+*Example*: If your application’s error rate suddenly spikes from 0.2% to 10%, but this spike does not occur during a known maintenance window or traffic surge, Datadog’s anomaly detection system can raise an alert without any pre-defined threshold. It knows that a 10% error rate is highly unusual based on historical patterns.
+
+---
+
+*Steps:*
+
+1️⃣ **Go to** `Monitors → Create Monitor → Anomaly Detection`
+
+2️⃣ Select `Metric: system.cpu.user{service:petclinic}`
+
+3️⃣ Choose **"Automatic Thresholds"**
+
+---
+class: center, middle
+
+#### Built-in Anomaly Detection
+
+DataDog also provides **automatic anomaly detection** for key metrics.
+
+---
+class: center, middle
+
+`Monitors → Create Monitor → Anomaly Detection`
+
+---
+
+##### ✅ Java Application Anomalies
+
+- **Abnormal Heap Memory Growth**
+
+- **Unexpected Spikes in HTTP Response Time**
+
+- **Unusual Garbage Collection Behavior**
+
+---
+
+📌 **How to enable?**
+
+1️⃣ **Go to** `Monitors → Recommended Monitors → Enable Anomalies`
+
+2️⃣ **Select Sensitivity** (`Aggressive, Moderate, Conservative`)
+
+3️⃣ **Enable Slack, PagerDuty, or Email notifications**
+
+---
+class: center, middle
+
+### Adaptive Alerting
+
+---
+class: center, middle
+
+Adaptive Alerting is an advanced feature that automatically adjusts alert thresholds based on the real-time behavior of your system.
+
+---
+class: center, middle
+
+This helps avoid alert fatigue caused by frequent false positives and reduces the need for manual tuning of alert thresholds.
+
+---
+class: center, middle
+
+#### How Adaptive Alerting Works
+
+---
+
+##### Dynamic Thresholds
+
+- Adaptive Alerting sets dynamic thresholds based on the historical data and trends of a given metric. Rather than using static thresholds (e.g., alert if CPU usage exceeds 80%), adaptive alerting adjusts this threshold based on the metric’s typical fluctuations.
+
+- It accounts for the natural variation of metrics in your system, ensuring that alerts only trigger when the system is truly out of bounds, considering the metric's past behavior.
+
+---
+
+##### Trend Awareness
+
+- Adaptive alerting understands the current trend of your metrics (e.g., increasing load, decreasing response time) and adjusts the alert threshold to follow that trend. This prevents alert fatigue when metrics are trending naturally (e.g., gradual traffic increases during peak hours).
+
+---
+
+##### Sensitivity Adjustment
+
+- Depending on the volatility of the metric, Datadog automatically adjusts the sensitivity of the alert. For example, if a metric tends to fluctuate widely, the system may adjust the threshold to be more forgiving, while metrics with stable behavior may have a stricter threshold.
+
+---
+
+##### Alert Escalation
+
+- If adaptive alerting detects that a metric's trend is becoming more volatile, it can escalate the severity or frequency of alerts. This ensures that any anomalies that would have gone unnoticed are caught before they become serious.
+
+---
+
+#### Use Cases of Adaptive Alerting
+
+- **Fluctuating Metrics**: For metrics that naturally fluctuate over time (e.g., website traffic, CPU usage), adaptive alerting ensures that you aren't bombarded with alerts during normal surges or drops.
+
+- **High-Traffic Systems**: In cases where traffic varies significantly (e.g., e-commerce websites during sales events), adaptive alerting ensures alerts are only triggered when there is a genuine issue.
+
+- **Microservices or Distributed Systems**: Adaptive alerting adjusts alerting behavior when working with a large number of services, each having its own operational characteristics and potential issues.
+
+---
+
+#### Benefits of Adaptive Alerting
+
+- **Minimized Alert Fatigue**: By adjusting thresholds based on data trends, adaptive alerting ensures alerts are relevant and necessary, reducing the noise that might cause teams to ignore critical warnings.
+
+- **Automated Tuning**: It removes the need for constant tweaking of alert thresholds, saving time and effort for monitoring teams.
+
+- **Improved Focus**: By reducing false positives, adaptive alerting allows teams to focus on the most critical issues without being overwhelmed by too many alerts.
+
+---
+class: center, middle
+
+*Example*: Consider a scenario where a metric like web request latency spikes during peak traffic hours.
+
+Without adaptive alerting, this could trigger an alert every day at the same time, even though it's expected behavior.
+
+Adaptive alerting understands this and adjusts the alert thresholds during peak hours to prevent unnecessary alerts. However, if latency spikes during an off-peak hour (when it's unexpected), an alert would be triggered.
+
+---
+
+### **Comparison and Relationship**
+
+- **Anomaly Detection** provides intelligent, data-driven insight into when something is outside the norm, allowing you to detect potential issues before they become critical. It looks for "unexpected" events in your data.
+
+- **Adaptive Alerting** focuses on adjusting the sensitivity of your alerts to better match your environment's changing conditions, preventing over-alerting during normal fluctuations and ensuring alerts are useful.
+
+---
+class: center, middle
+
+Both features work together to provide a more refined and responsive monitoring experience, helping you catch critical issues without being overwhelmed by noise.
+
+---
+class: center, middle
+
+### **Composite Alerts in Datadog**
+
+---
+class: center, middle
+
+**Composite Alerts** are advanced alerting rules in Datadog that **combine multiple alert conditions using boolean logic** (e.g., AND, OR, NOT). They allow you to trigger an alert **only when multiple related conditions are met**, helping reduce alert noise and prioritize truly critical issues.
+
+---
+class: center, middle
+
+#### Key Features
+
+---
+
+**Logical Combination of Monitors**:
+
+You can reference up to **10 existing monitors** (which can be metric, log, trace, or status monitors) and combine them using logical operators like:
+
+- `AND`: All conditions must be true.
+
+- `OR`: Any condition can be true.
+
+- `NOT`: Invert the result of a condition.
+
+---
+
+**Monitor Composition**:
+
+- Each component monitor is treated as a **named variable**, like `A`, `B`, `C`.
+
+- You define a condition using an expression, e.g.:
+
+  ```
+  A AND (B OR C)
+  ```
+
+- This composite condition is evaluated continuously.
+
+---
+
+**Decoupled Alert Logic**:
+
+- Component monitors continue to operate independently.
+
+- The composite alert triggers **only when the logical condition is met**—you can use this to avoid noisy alerts from single-point failures.
+
+---
+
+#### 🛠 **Use Cases**
+
+- **Correlated Failures**:
+
+- Example: Alert only when **CPU usage is high AND request latency is increasing**.
+
+  - `A = CPU > 90%`
+  - `B = Latency > 500ms`
+  - Composite: `A AND B`
+
+- **Guarded Alerts**:
+
+- Avoid false alarms by adding a **guard condition**.
+
+  - Example: Only alert if service is failing **AND traffic volume is significant**.
+  - This prevents alerting on low-traffic test environments.
+
+---
+
+- **Reducing Alert Fatigue**:
+
+- Combine noisy alerts with a severity threshold to trigger alerts **only when they actually matter**.
+
+- **System-Wide Health**:
+
+- Alert when **multiple services** are degraded at once:
+
+     ```
+     (A AND B) OR (C AND D)
+     ```
+
+This can signal a systemic issue across a microservices environment.
+
+---
+
+#### 📋 **Requirements & Limitations**
+
+**Component Monitors**:
+
+- Must be existing monitors.
+
+- Should have clearly defined thresholds.
+
+- Can be **any type**: metric, log, trace, service checks, etc.
+
+**No Nested Composites**:
+
+- You cannot include a composite monitor **inside another composite**.
+
+**Alerting Behavior**:
+
+- Composite alerts will trigger and resolve **based on the logical state** of their components.
+
+- You can configure **notifications**, **priorities**, and **escalation policies** just like regular monitors.
+
+---
+
+*Example*: Let’s say you’re running a web application and want to alert only if both:
+
+- The **frontend latency** is above 1s (`Monitor A`),
+- The **backend error rate** is above 5% (`Monitor B`),
+
+You define a **composite monitor** with:
+
+```
+A AND B
+```
+
+So now, even if latency spikes due to a benign reason (e.g., client-side delay), or the backend has minor errors during low traffic, **no alert is sent** unless both degrade together—suggesting a real problem.
+
+---
+
+#### ✅ Benefits of Composite Alerts
+
+- **Noise Reduction**: Avoid alerting on transient, non-critical issues.
+
+- **Better Context**: Alert only when multiple symptoms suggest a real problem.
+
+- **Operational Clarity**: Helps SREs, devs, and ops teams focus on the bigger picture, not isolated signals.
+
+---
+class: center, middle
+
 #### Troubleshooting Performance Issues with DataDog APM
 
 ---
 class: center, middle
 
-*Exercise*: Simulating and troubleshooting issues in PetClinic
-
----
-class: center, middle
-
-##### K8s Specific Troubleshooting
-
----
-class: center, middle
-
-## Kubernetes Network Performance Monitoring with DataDog
-
----
-class: center, middle
-
-`datadog.networkMonitoring.enabled`
-
----
-class: center, middle
-
-### **✅ Essential Network Performance Metrics**
+*Exercise*: Simulating and troubleshooting issues in TSRE Microservices
 
 ---
 
-| **Metric** | **Description** | **DataDog Metric Name** |
-|------------|---------------|------------------|
-| **Pod Network Traffic** | Measures ingress/egress traffic for pods | `kubernetes.pod.network.tx_bytes`, `kubernetes.pod.network.rx_bytes` |
-| **Node Network Traffic** | Measures node-level network usage | `kubernetes.node.network.tx_bytes`, `kubernetes.node.network.rx_bytes` |
-| **API Server Latency** | Tracks latency for requests to Kubernetes API | `kubernetes.apiserver.request.latency` |
-| **DNS Resolution Time** | Measures Kubernetes DNS query performance | `kubernetes.dns.request_duration` |
-| **Service Connectivity** | Monitors network reachability between services | `datadog.network.tcp.response_time` |
-| **Packet Drops** | Detects lost packets due to network congestion | `kubernetes.network.dropped_packets` |
-| **TCP Retransmissions** | Measures TCP retransmissions due to network issues | `kubernetes.network.tcp.retransmits` |
-
----
-class: center, middle
-
-*Exercise*: Creating a Network Performance Dashboard for K8s
-
----
-class: center, middle
-
-### Kubernetes Network Performance Monitoring with CNI & DataDog
-
----
-class: center, middle
-
-What is CNI in Kubernetes?
-
----
-
-**Container Network Interface (CNI)** is the **networking layer** in Kubernetes responsible for:
-
-✔ Assigning **IP addresses** to Pods
-
-✔ Setting up **routes** for inter-pod communication
-
-✔ Enforcing **network policies** for security
-
-✔ Handling **network overlays** (if applicable)
-
----
-
-**Popular CNIs** & How They Work:
-
-| **CNI** | **Type** | **How it Works** |
-|---------|---------|----------------|
-| **Calico** | L3 | Uses BGP for pod networking & security policies |
-| **Cilium** | L3/L7 | eBPF-based for efficient networking & observability |
-| **Flannel** | L2 | Simple overlay networking with VXLAN |
-| **AWS VPC CNI** | L3 | Assigns ENIs (Elastic Network Interfaces) directly in AWS VPC |
-| **Weave** | L2/L3 | Uses VXLAN & IP routing for networking |
-
----
-class: center, middle
-
-📌 **Why This Matters?** Different CNIs expose **different metrics** that impact network monitoring.
-
----
-class: center, middle
-
-#### **📌 CNI-Specific Monitoring Strategies**
-
----
-
-##### **✅ Cilium CNI Monitoring**
-
-📌 **Monitor eBPF-based networking, L7 security, and service connectivity.**
-
-1️⃣ **Enable Cilium Hubble for Observability**
-```sh
-helm upgrade --install cilium cilium/cilium \
-  --set hubble.enabled=true \
-  --set hubble.relay.enabled=true \
-  --set hubble.ui.enabled=true
-```
-
-2️⃣ **Metrics in DataDog**
-
-- **Packet Drops**: `cilium.policy.drops`
-- **L7 HTTP Request Latency**: `cilium.http.request_duration_seconds`
-- **Service Connectivity**: `cilium.endpoint.state`
-
-3️⃣ **Create Alert: High Network Latency Between Services**
-
-```plaintext
-avg:cilium.http.request_duration_seconds{*} by {service} > 0.5
-```
-
-🚨 **Triggers if HTTP request latency between services is >500ms.**
-
----
-
-##### **✅ AWS VPC CNI Monitoring**
-
-📌 **Monitor AWS ENI allocation, bandwidth limits & dropped packets.**
-
-1️⃣ **Enable AWS VPC CNI Metrics Collection**
-
-```sh
-kubectl set env daemonset/aws-node -n kube-system ENABLE_VPC_CNI_PROMETHEUS=true
-```
-
-2️⃣ **Metrics in DataDog**
-
-- **ENI Allocation**: `aws.vpc_cni.enis_allocated`
-- **IP Addresses Per ENI**: `aws.vpc_cni.ipv4_addresses_per_eni`
-- **Packet Drops**: `aws.vpc_cni.dropped_packets`
-
-3️⃣ **Create Alert: Running Out of ENIs**
-
-```plaintext
-avg:aws.vpc_cni.enis_allocated{*} by {region} > 80
-```
-
-🚨 **Triggers if more than 80% of ENIs are allocated.**
-
----
-class: center, middle
-
-## Query Performance Monitoring (QPM) in SQL Server
-
----
-class: center, middle
-
-### **✅ Enable Query Execution Monitoring**
-
----
-
-1️⃣ **Enable `sys.dm_exec_requests` Query Collection**
-
-Edit `/etc/datadog-agent/conf.d/sqlserver.d/conf.yaml`:
-
-```yaml
-query_metrics:
-  - name: "long_running_queries"
-    query: |
-      SELECT session_id, start_time, total_elapsed_time/1000 as duration_ms, command, database_id
-      FROM sys.dm_exec_requests
-      WHERE total_elapsed_time > 5000
-    columns:
-      - name: session_id
-        type: tag
-      - name: start_time
-        type: tag
-      - name: duration_ms
-        type: gauge
-      - name: command
-        type: tag
-```
-
-2️⃣ **Restart DataDog Agent**
-
-```sh
-sudo systemctl restart datadog-agent
-```
-
-✅ **Now you can track long-running queries in DataDog!**
-
----
-class: center, middle
-
-## **🚀 DataDog AWS Integration Best Practices**
-
----
-class: center, middle
-
-Setting up **DataDog with AWS** requires best practices for **security, cost optimization, and effective monitoring**.
-
----
-
-✔ **IAM Role Setup & Security Best Practices**
-
-✔ **Optimizing AWS API Calls (Cost & Performance)**
-
-✔ **Key AWS Services to Monitor**
-
-✔ **Dashboards & Alerts Best Practices**
-
-✔ **Anomaly Detection & Auto-Tagging**
-
-✔ **Managing Multi-Account AWS Monitoring**
-
----
-
-### **✅ Use IAM Role-Based Authentication**
-
-🔹 Instead of static access keys, **create an IAM Role** for DataDog with cross-account access.
-
-🔹 This improves **security** and avoids credential leaks.
-
-### **✅ Least Privilege IAM Permissions**
-
-Assign only the necessary permissions. **Use AWS Managed Policies**
-
----
-class: center, middle
-
-✅ **Avoid using `AdministratorAccess`** to reduce security risks.
-
----
-
-### **✅ Use AWS Tag-Based Filtering**
-
-Instead of pulling **all AWS services**, use tags to filter resources.
-
-📌 **Example: Allow only resources with `Environment=Production`**
-
-1️⃣ Go to **DataDog → AWS Integration**
-
-2️⃣ Under **"Limit metrics collection by tag"**, add:
-   ```yaml
-   Environment:Production
-   Service:WebApp
-   ```
-
-✅ This reduces unnecessary API calls and cost!
-
----
-
-### **✅ Reduce High-Frequency API Calls**
-
-Some AWS API calls (like `DescribeInstances`) can be expensive.
-
-📌 **Best Practices:**
-
-- **Use CloudWatch Metrics** instead of `DescribeInstances` for EC2 metrics.
-
-- **Enable CloudWatch Metric Streams** for real-time, cost-efficient monitoring.
-
-- **Disable Unused AWS Services** in DataDog integration.
-
----
-
-### **✅ EC2 & Auto Scaling**
-
-✔ Track **CPU, Memory, Disk, Network** (`aws.ec2.cpuutilization`)
-
-✔ Monitor **Auto Scaling events**
-
-✔ Alert on **high CPU, memory exhaustion, or instance failures**
-
----
-
-### **✅ RDS (MySQL, PostgreSQL, SQL Server)**
-
-✔ **Key Metrics:**
-
-- CPU Utilization (`aws.rds.cpuutilization`)
-
-- Active Connections (`aws.rds.database_connections`)
-
-- Read/Write Latency (`aws.rds.read_latency`)
-
----
-
-| **Metric** | **Description** | **DataDog Metric** |
-|------------|---------------|------------------|
-| **CPU Utilization** | Tracks SQL Server CPU load | `aws.rds.cpuutilization` |
-| **Memory Usage** | Measures available memory | `aws.rds.freeablememory` |
-| **Read/Write Latency** | Disk I/O performance | `aws.rds.read_latency`, `aws.rds.write_latency` |
-| **Database Connections** | Active connections count | `aws.rds.database_connections` |
-| **Deadlocks** | Number of deadlocks detected | `aws.rds.deadlocks` |
-| **Long-Running Queries** | Tracks slow queries | `sqlserver.queries.slow` |
-| **Lock Wait Time** | Time spent waiting for locks | `sqlserver.lock_waits` |
-
----
-
-### **✅ Kubernetes (EKS) & Containers**
-
-✔ **Monitor Cluster Health (`aws.eks.node_count`)**
-
-✔ **Track Pod CPU/Memory Usage**
-
-✔ **Enable Log Collection with AWS FluentBit**
-
----
-
-### **✅ Lambda & Serverless**
-
-✔ Monitor **Cold Start Latency (`aws.lambda.duration`)**
-
-✔ Track **Invocation Errors (`aws.lambda.errors`)**
-
----
-class: center, middle
-
-## **🔒 Security & Incident Response in DataDog**
-
----
-class: center, middle
-
-DataDog provides **security monitoring, anomaly detection, and incident response tools** to detect and mitigate threats in cloud environments.
-
----
-
-✔ **Security Monitoring for AWS, Kubernetes, and EC2**
-
-✔ **Threat Detection with Logs & Metrics**
-
-✔ **Anomaly Detection & Alerts**
-
-✔ **Incident Response & Forensics**
-
-✔ **Compliance & Audit Logging**
-
----
-
-### **✅ Enable Security Monitoring in DataDog**
-
-Security monitoring requires **DataDog Security Monitoring** (SIEM) and **log ingestion**.
-
-📌 **To enable security monitoring:**
-
-1️⃣ **Go to** `Security → Security Signals`
-
-2️⃣ **Enable CloudTrail, VPC Flow Logs, Kubernetes Logs, and System Logs**
-
-3️⃣ Set up **Security Rules** to detect unauthorized access
-
----
-
-📌 **Example: Detect AWS Root User Login**
-
-1️⃣ **Go to** `Security → Rules`
-2️⃣ Create a new rule:
-
-```yaml
-security.rule:
-  name: "AWS Root User Login"
-  query: 'service:aws.cloudtrail @userIdentity.type:Root'
-  severity: "high"
-  notification: "@security-team"
-```
-
-🚨 **Triggers an alert if AWS root user logs in.**
-
----
-
-### **✅ Security Log Monitoring**
-
-Collect logs from:
-
-- **AWS CloudTrail** (IAM activity, unauthorized access)
-
-- **VPC Flow Logs** (network anomalies)
-
-- **EC2 & Kubernetes Logs** (process anomalies)
-
-- **Application Logs** (authentication failures)
-
----
-
-📌 **Example: Monitor Unauthorized SSH Access on EC2**
-
-1️⃣ **Enable log collection:**
-
-```yaml
-logs_enabled: true
-```
-
-2️⃣ **Create a log filter rule:**
-
-```yaml
-logs:
-  - type: file
-    path: /var/log/auth.log
-    source: ssh
-    service: security
-```
-
-3️⃣ **Set up a Security Rule:**
-
-```yaml
-security.rule:
-  name: "Unauthorized SSH Access"
-  query: 'service:ssh @status:failed'
-  severity: "medium"
-  notification: "@security-team"
-```
-
-🚨 **Triggers an alert when an SSH login fails multiple times.**
-
----
-
-### **✅ Enable Anomaly Detection**
-
-1️⃣ **Go to** `Monitors → New Monitor → Anomaly Detection`
-
-2️⃣ Choose **metrics like CPU spikes, network traffic surges, or unauthorized logins**
-
-3️⃣ Set up thresholds for normal vs. abnormal behavior
-
----
-
-📌 **Example: Detect Unusual Traffic in Kubernetes**
-
-```yaml
-avg:kubernetes.network.tx{namespace:prod} by {pod} > anomaly("basic", 2, direction=above)
-```
-
-🚨 **Triggers an alert when outbound traffic spikes unexpectedly.**
-
----
-
-📌 **Common Security Anomaly Alerts**
-
-| **Threat** | **Metric/Log** | **DataDog Alert** |
-|------------|--------------|------------------|
-| **DDoS Attack** | High incoming traffic | `aws.vpc.network_in > anomaly(3x)` |
-| **Brute Force SSH Attack** | Failed SSH logins | `service:ssh @status:failed > 5 times in 10 min` |
-| **Unauthorized API Access** | AWS CloudTrail logs | `@eventName:AuthorizeSecurityGroupIngress` |
-| **Container Escape Attempt** | K8s audit logs | `kubernetes.audit @event:exec into privileged container` |
-
----
-class: center, middle
-
-✅ **Security anomalies are automatically flagged in DataDog.**
-
----
-
-### **✅ Set Up Incident Management in DataDog**
-
-📌 **Steps to Create an Incident Response Workflow:**
-
-1️⃣ **Go to** `Incident Management → Create Incident`
-
-2️⃣ **Define Severity Levels:**
-
-- 🔴 **Critical** (Service down, data breach)
-- 🟠 **High** (Unauthorized access, API abuse)
-- 🟡 **Medium** (Suspicious login attempt)
-
-3️⃣ **Assign Teams** (Security, DevOps, IT)
-
-4️⃣ **Attach Logs, Metrics, Dashboards for Analysis**
-
----
-
-📌 **Example: Security Incident Response for EC2 Compromise**
-
-1️⃣ **Detect Unauthorized Access:**
-
-- **Alert Triggered:** "Root login detected from unknown IP"
-
-2️⃣ **Investigate Logs & Network Traffic:**
-
-- **Check CloudTrail logs:**
-
-```sh
-aws cloudtrail lookup-events --lookup-attributes AttributeKey=EventName,AttributeValue=ConsoleLogin
-```
-
-- **Inspect EC2 network traffic:**
-
-```sh
-aws ec2 describe-flow-logs
-```
-
-3️⃣ **Mitigate the Threat:**
-
-- 🚨 **Revoke compromised IAM keys**
-- 🔒 **Restrict security group rules**
-- 🛑 **Quarantine the instance**
-
----
-
-### **✅ Enable AWS Compliance Monitoring**
-
-📌 **To enable compliance monitoring:**
-
-1️⃣ **Go to** `Security → Compliance Monitoring`
-
-2️⃣ Enable **CIS AWS Foundations Benchmark**
-
-3️⃣ Monitor for:
-
-- **Public S3 Buckets**
-
-- **Unencrypted Databases**
-
-- **Overly Permissive IAM Roles**
-
----
-
-📌 **Example: Detect Publicly Accessible S3 Buckets**
-
-```yaml
-security.rule:
-  name: "S3 Bucket Publicly Accessible"
-  query: 'service:aws.s3 @acl:public-read OR @acl:public-write'
-  severity: "critical"
-  notification: "@security-team"
-```
-
-🚨 **Triggers an alert when an S3 bucket is exposed to the public.**
-
----
-
-📌 **Example: Detect Unrestricted Security Groups**
-
-```yaml
-security.rule:
-  name: "Security Group Open to the World"
-  query: 'service:aws.ec2 @IpPermissions:0.0.0.0/0'
-  severity: "high"
-  notification: "@security-team"
-```
-
-🚨 **Notifies if an EC2 security group is open to the public.**
+## [Datadog with Kubernetes/AWS](https://datadog-with-kubernetes-and-aws.slides.AgarwalConsulting.com)
 
 ---
 class: center, middle
