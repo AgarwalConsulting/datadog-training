@@ -552,55 +552,7 @@ and it's configuration
 ---
 class: center, middle
 
-### *Optional:* [On Kubernetes](https://docs.datadoghq.com/containers/kubernetes/)
-
----
-class: center, middle
-
 ### *Optional:* [DataDog Client Libraries](https://docs.datadoghq.com/developers/community/libraries/)
-
----
-class: center, middle
-
-### *Optional:* **Integrating with AWS**
-
-.content-credits[https://docs.datadoghq.com/integrations/amazon_web_services/]
-
----
-class: center, middle
-
-#### *Optional:* **Integrating DataDog with AWS RDS (SQL Server, PostgreSQL, MySQL, etc.)**
-
----
-
-#### **Steps:**
-
-1️⃣ **Go to AWS Integration in DataDog**
-
-- Navigate to **Integrations** → **AWS** in DataDog UI.
-- Click **"Install Integration"** (if not installed).
-
-2️⃣ **Set Up an IAM Role for DataDog**
-
-- Create an **IAM Role** in AWS with a **CloudWatch Read-Only Policy**.
-- Attach the following policies:
-  - `CloudWatchReadOnlyAccess`
-  - `AWSRDSReadOnlyAccess`
-- Add a **trust policy** to allow DataDog to assume this role.
-
----
-
-3️⃣ **Link DataDog to AWS**
-
-- In DataDog, go to **AWS Integration** settings.
-- Enter the **IAM Role ARN** created earlier.
-- Select **RDS service** for monitoring.
-
-4️⃣ **Enable Enhanced RDS Monitoring (Optional, Recommended)**
-
-- In AWS Console, go to **RDS → Modify DB Instance**.
-- Enable **Enhanced Monitoring** and select a **monitoring role**.
-- Choose **Granularity** (1s, 5s, 10s, etc.).
 
 ---
 class: center, middle
@@ -1801,16 +1753,180 @@ So now, even if latency spikes due to a benign reason (e.g., client-side delay),
 ---
 class: center, middle
 
-#### Troubleshooting Performance Issues with DataDog APM
+## 🚨 **Incident Handling in Datadog**
+
+---
+
+### **Incident Detection**
+
+Incidents are typically triggered through:
+
+- **Monitors** (metric, log, trace, service check, SLO, etc.)
+
+- **Composite Alerts**
+
+- **Manual Creation** (via the Incidents UI or API)
+
+- **Third-party Integrations** (e.g., PagerDuty, Slack)
+
+---
+class: center, middle
+
+When a monitor enters an **alert** or **warning** state, it can trigger the automatic **creation of an incident** with a predefined severity level.
+
+---
+
+### **Datadog Incident Management Module**
+
+Datadog includes a first-class **Incident Management** module, similar to PagerDuty or Opsgenie, with:
+
+#### 🔍 **Key Features**
+
+| Feature               | Description                                                                                         |
+| --------------------- | --------------------------------------------------------------------------------------------------- |
+| **Incident Timeline** | Live feed of all updates, monitors, comments, and status changes.                                   |
+| **Roles**             | Assign roles like **Commander**, **Scribe**, and **Subject Matter Expert**.                         |
+| **Severity Levels**   | Classify incidents from **SEV-1 to SEV-5** based on business impact.                                |
+| **Status Updates**    | Post updates during the incident lifecycle (e.g., Identified, Investigating, Monitoring, Resolved). |
+| **Postmortems**       | Auto-generate or manually create post-incident analysis.                                            |
+| **Custom Fields**     | Tag incidents with custom metadata (e.g., affected service, impact scope).                          |
+
+---
+
+### **Incident Lifecycle Stages**
+
+| Stage          | Action                                                                      |
+| -------------- | --------------------------------------------------------------------------- |
+| **Detection**  | Triggered by monitor alert or manual creation.                              |
+| **Triage**     | Evaluate severity, assign roles, gather initial data.                       |
+| **Mitigation** | Implement fixes, deploy rollbacks, coordinate across teams.                 |
+| **Resolution** | Declare the incident resolved once the system stabilizes.                   |
+| **Postmortem** | Analyze root cause, time-to-detect, response actions, and preventive steps. |
+
+---
+class: center, middle
+
+## 📣 **Notification Workflows**
+
+Datadog offers flexible, powerful **notification and escalation workflows**, integrated into every monitor and incident rule.
+
+---
+
+### **Notification Channels**
+
+You can notify teams via:
+
+- **Email**
+
+- **Slack**
+
+- **Microsoft Teams**
+
+- **PagerDuty / Opsgenie / VictorOps**
+
+- **Webhook**
+
+- **ServiceNow, Jira**, and other ITSM tools
+
+---
+
+#### 👉 Each channel can be tied to
+
+- **Alert severity**
+
+- **Monitor tags**
+
+- **Incident roles**
+
+- **Routing rules**
+
+---
+
+### **Routing and Escalation**
+
+Datadog supports advanced notification routing via:
+
+- **Monitor tags**: Route alerts based on service, environment, region, etc.
+
+- **Notification suppression**: Prevent duplicate alerts from noisy monitors.
+
+- **Downtime scheduling**: Temporarily suppress alerts during maintenance.
+
+- **Multi-recipient routing**: Notify different people/teams based on severity.
+
+---
+
+### **Templated Messages**
+
+Monitor and incident messages can be templated using variables:
+
+```markdown
+{{value}}, {{threshold}}, {{host.name}}, {{env}}, {{service.name}}
+```
+
+These help generate detailed, actionable notifications with direct links to:
+
+- Dashboards
+- Logs
+- Traces
+- Affected monitors
+- Runbooks or internal playbooks
+
+---
+
+### **Slack-Specific Features**
+
+Slack integration goes beyond basic notifications:
+
+- Interactive message buttons (Acknowledge, Resolve)
+
+- Rich incident card summaries
+
+- Channel-level alert routing
+
+- Command-based interactions (`/datadog incident create`)
+
+---
+
+### **Automations and Webhooks**
+
+- Use **webhooks** to send alerts to custom platforms (e.g., internal dashboards, chatbots).
+- Use **Datadog Workflows** (automation pipelines) to:
+
+  - Auto-create incidents
+
+  - Send custom notifications
+
+  - Create Jira tickets
+
+  - Run diagnostics
+
+---
+
+## 🧠 **Best Practices for Incident Handling & Notifications**
+
+| Area                     | Best Practice                                                        |
+| ------------------------ | -------------------------------------------------------------------- |
+| **Granular Alerts**      | Use tags and composite monitors to minimize alert noise.             |
+| **Clear Ownership**      | Use incident roles and define on-call ownership.                     |
+| **Predefined Templates** | Standardize incident messages for clarity and actionability.         |
+| **Postmortems**          | Treat every incident as a learning opportunity.                      |
+| **Integrations**         | Make use of PagerDuty/Slack/Jira for seamless response coordination. |
+| **Automation**           | Automate repetitive tasks using Datadog Workflows or scripts.        |
+
+---
+
+## [Datadog with Kubernetes/AWS](https://datadog-with-kubernetes-and-aws.slides.AgarwalConsulting.com)
+
+---
+class: center, middle
+
+## Troubleshooting Performance Issues with DataDog APM
 
 ---
 class: center, middle
 
 *Exercise*: Simulating and troubleshooting issues in TSRE Microservices
-
----
-
-## [Datadog with Kubernetes/AWS](https://datadog-with-kubernetes-and-aws.slides.AgarwalConsulting.com)
 
 ---
 class: center, middle
